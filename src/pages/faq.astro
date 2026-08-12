@@ -1,0 +1,96 @@
+---
+import Base from '../layouts/Base.astro';
+import Faq from '../components/Faq.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { FOUNDERS_SEATS } from '../config';
+
+const faqs = [
+  {
+    q: 'Cos’è Paco, in una frase?',
+    a: 'Un assistente AI che crea il sito web della tua attività e te lo gestisce da WhatsApp: tu scrivi in chat, lui pubblica — e ai tuoi clienti risponde lui, con le informazioni del sito sempre aggiornate.',
+  },
+  {
+    q: 'Devo saper usare il computer?',
+    a: 'No. Se sai mandare un messaggio WhatsApp, sai usare Paco. Niente pannelli, niente password, niente app nuove da installare.',
+  },
+  {
+    q: 'Quanto ci vuole ad avere il sito online?',
+    a: 'L’obiettivo dell’early access è un paio di giorni dal primo messaggio, con circa mezz’ora del tuo tempo in tutto — distribuita come vuoi, anche a pezzi tra un cliente e l’altro.',
+  },
+  {
+    q: 'Il numero WhatsApp è il mio?',
+    a: 'L’attività riceve un numero WhatsApp Business dedicato, incluso: è quello pubblicato sul sito, a cui scrivono i clienti e su cui vive Paco. Tu gli scrivi dal tuo WhatsApp personale e lui ti riconosce come titolare. Il tuo numero storico resta tuo, per le telefonate e per le abitudini di sempre.',
+  },
+  {
+    q: 'Cosa succede se Paco non sa rispondere a un cliente?',
+    a: 'Lo dice, con onestà, e ti passa la conversazione con un riepilogo ordinato: chi, cosa, quando, come ricontattare. Non inventa mai una risposta pur di rispondere.',
+  },
+  {
+    q: 'Paco finge di essere me?',
+    a: 'Mai. Si presenta sempre come assistente («Sono Paco, l’assistente di…») al primo messaggio. È una regola scritta nel prodotto, oltre che una questione di rispetto per i tuoi clienti.',
+  },
+  {
+    q: 'Posso modificare il sito da solo, da un pannello?',
+    a: 'No, ed è il punto: il pannello è esattamente lo strumento che fa morire i siti di abbandono. Ogni modifica passa dalla chat — illimitata, immediata, con «annulla» sempre disponibile. Se vuoi il controllo, ce l’hai: è Paco a obbedire a te, non il contrario.',
+  },
+  {
+    q: 'Di chi sono i contenuti e i dati?',
+    a: 'Tuoi. Testi, foto, listini e contatti dei clienti restano tuoi: li esporti quando vuoi e, se un giorno vai via, te li porti dietro. Trovi il dettaglio nella <a href="/privacy">privacy policy</a>.',
+  },
+  {
+    q: 'Quanto costa?',
+    a: `Un canone mensile, tutto incluso, a partire da 29 €/mese (IVA esclusa). La fascia consigliata è Assistente, 59 €/mese — che per i primi ${FOUNDERS_SEATS} fondatori dell’early access è a 39 €, bloccata. Tutto sui <a href="/prezzi">prezzi</a>.`,
+  },
+  {
+    q: 'Cosa NON fa Paco, oggi?',
+    a: 'Oggi Paco non gestisce calendari di prenotazione (raccoglie le richieste e le conferma con te), non incassa pagamenti e non fa e-commerce. Sono sulla <a href="/come-funziona">strada</a>, ma finché non ci sono li leggerai sempre al futuro, mai come già disponibili.',
+  },
+  {
+    q: 'Quando parte? Come funziona l’early access?',
+    a: `Early access da fine 2026 (Q4). Ci si iscrive alla <a href="/early-access">lista d’attesa</a> gratuitamente; quando si apre il tuo posto ti contattiamo su WhatsApp e decidi se attivare. I primi ${FOUNDERS_SEATS} attivati hanno la tariffa fondatori bloccata.`,
+  },
+  {
+    q: 'Chi c’è dietro Paco?',
+    a: '<a href="https://alpacode.it" rel="noopener">Alpacode</a>, studio italiano che progetta e costruisce prodotti web. Paco è il nostro modo di dare alle piccole attività quello che finora potevano permettersi solo le grandi: qualcuno che si occupa del sito al posto loro.',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a.replace(/<[^>]+>/g, '') },
+  })),
+};
+---
+
+<Base
+  title="Domande frequenti"
+  description="Cos’è Paco, come funziona il numero WhatsApp, cosa succede quando non sa rispondere, di chi sono i dati, quanto costa e cosa non fa ancora: risposte dirette, senza gergo."
+  schema={faqSchema}
+>
+  <section class="section">
+    <div class="container stack pagehead">
+      <p class="eyebrow">Domande frequenti</p>
+      <h1 class="display">Chiedi pure. Rispondiamo dritto.</h1>
+      <p class="lede">
+        Se qui manca qualcosa, scrivici: la domanda buona finisce in pagina, con la risposta.
+      </p>
+    </div>
+  </section>
+  <section class="section section--tight" aria-labelledby="tutte-title">
+    <div class="container">
+      <h2 class="sr-only" id="tutte-title">Tutte le domande</h2>
+      <Faq items={faqs} />
+    </div>
+  </section>
+  <CtaBand />
+</Base>
+
+<style>
+  .pagehead {
+    max-width: 56rem;
+  }
+</style>

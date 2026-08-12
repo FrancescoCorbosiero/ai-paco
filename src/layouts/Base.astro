@@ -1,0 +1,109 @@
+---
+import '@fontsource/archivo-black';
+import '@fontsource-variable/manrope';
+import '@fontsource-variable/jetbrains-mono';
+import archivoWoff2 from '@fontsource/archivo-black/files/archivo-black-latin-400-normal.woff2?url';
+import manropeWoff2 from '@fontsource-variable/manrope/files/manrope-latin-wght-normal.woff2?url';
+import jetbrainsWoff2 from '@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2?url';
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_NAME, SITE_DESCRIPTION, ALPACODE_URL } from '../config';
+import { ogImageFor } from '../data/og-pages';
+import { t } from '../i18n/ui';
+
+interface Props {
+  /** Titolo pagina (senza suffisso — «— Paco» viene aggiunto qui) */
+  title: string;
+  description?: string;
+  /** Percorso immagine OG; se assente si deduce dalla route */
+  ogImage?: string;
+  ogType?: 'website' | 'article';
+  noindex?: boolean;
+  /** JSON-LD aggiuntivi oltre a Organization/WebSite */
+  schema?: Record<string, unknown> | Record<string, unknown>[];
+}
+
+const {
+  title,
+  description = SITE_DESCRIPTION,
+  ogImage,
+  ogType = 'website',
+  noindex = false,
+  schema,
+} = Astro.props;
+
+const fullTitle = title.includes(SITE_NAME) ? title : `${title} — ${SITE_NAME}`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImageUrl = new URL(ogImage ?? ogImageFor(Astro.url.pathname), Astro.site);
+
+const baseSchema: Record<string, unknown>[] = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Alpacode',
+    url: ALPACODE_URL,
+    brand: { '@type': 'Brand', name: SITE_NAME },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: SITE_NAME,
+    url: Astro.site?.toString(),
+    inLanguage: 'it-IT',
+  },
+];
+const extraSchema = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
+const allSchema = [...baseSchema, ...extraSchema];
+---
+
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    {/* preload dei subset latini: niente scatto di layout al caricamento font */}
+    <link rel="preload" as="font" type="font/woff2" href={archivoWoff2} crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href={manropeWoff2} crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href={jetbrainsWoff2} crossorigin />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="Blog di Paco"
+      href={new URL('rss.xml', Astro.site)}
+    />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0A0F0C" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F2F7F3" />
+    <meta name="generator" content={Astro.generator} />
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:locale" content="it_IT" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(allSchema)} />
+  </head>
+  <body>
+    <a class="skip-link" href="#contenuto">{t('skip.content')}</a>
+    <Header />
+    <main id="contenuto">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

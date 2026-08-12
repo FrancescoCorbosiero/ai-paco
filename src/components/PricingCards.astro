@@ -1,0 +1,146 @@
+---
+import { tiers } from '../data/pricing';
+
+interface Props {
+  /** versione ridotta per la home */
+  compact?: boolean;
+}
+const { compact = false } = Astro.props;
+---
+
+<div class:list={['pricing', { 'pricing--compact': compact }]}>
+  {
+    tiers.map((tier) => (
+      <article class:list={['pricing__card', { 'pricing__card--reco': tier.recommended }]}>
+        {tier.recommended && <p class="badge badge--solid pricing__flag">Consigliato</p>}
+        <h3 class="pricing__name display">{tier.name}</h3>
+        <p class="pricing__tagline">{tier.tagline}</p>
+        <p class="pricing__price mono">
+          {tier.founders ? (
+            <>
+              <span class="pricing__strike" aria-hidden="true">
+                {tier.price} €
+              </span>
+              <strong>{tier.founders.price} €</strong>
+              <span class="pricing__per">/mese</span>
+              <span class="sr-only">
+                (tariffa fondatori: {tier.founders.price} € invece di {tier.price} €)
+              </span>
+            </>
+          ) : (
+            <>
+              <strong>{tier.price} €</strong>
+              <span class="pricing__per">/mese</span>
+            </>
+          )}
+        </p>
+        {tier.founders && <p class="pricing__founders">{tier.founders.note}</p>}
+        {!compact && (
+          <ul class="pricing__features">
+            {tier.features.map((f) => (
+              <li>{f}</li>
+            ))}
+          </ul>
+        )}
+        {!compact && (
+          <a
+            class:list={['btn', tier.recommended ? 'btn--primary' : 'btn--ghost', 'pricing__cta']}
+            href="/early-access"
+          >
+            Entra in early access
+          </a>
+        )}
+      </article>
+    ))
+  }
+</div>
+
+<style>
+  .pricing {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+    align-items: stretch;
+  }
+  .pricing__card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    padding: var(--space-4);
+  }
+  .pricing__card--reco {
+    border: 2px solid var(--accent);
+    box-shadow: var(--shadow);
+  }
+  .pricing__flag {
+    position: absolute;
+    top: -0.8em;
+    inset-inline-start: var(--space-4);
+  }
+  .pricing__name {
+    font-size: 1.35rem;
+  }
+  .pricing__tagline {
+    color: var(--ink-dim);
+    min-height: 3em;
+  }
+  .pricing__price {
+    font-size: 1.1rem;
+  }
+  .pricing__price strong {
+    font-size: 2.2rem;
+    font-weight: 700;
+  }
+  .pricing__strike {
+    text-decoration: line-through;
+    color: var(--ink-mute);
+    margin-inline-end: 0.4em;
+  }
+  .pricing__per {
+    color: var(--ink-mute);
+  }
+  .pricing__founders {
+    font-size: var(--text-small);
+    color: var(--accent-text);
+    font-weight: 600;
+  }
+  .pricing__features {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 0.55rem;
+    flex-grow: 1;
+  }
+  .pricing__features li {
+    padding-inline-start: 1.4em;
+    position: relative;
+    font-size: 0.95rem;
+  }
+  .pricing__features li::before {
+    content: '✓';
+    position: absolute;
+    inset-inline-start: 0;
+    color: var(--accent-text);
+    font-family: var(--font-mono);
+    font-weight: 700;
+  }
+  .pricing__cta {
+    justify-content: center;
+  }
+  .pricing--compact .pricing__tagline {
+    min-height: auto;
+  }
+  @media (max-width: 56rem) {
+    .pricing {
+      grid-template-columns: 1fr;
+      max-width: 26rem;
+      margin-inline: auto;
+    }
+    .pricing__card--reco {
+      order: -1;
+    }
+  }
+</style>

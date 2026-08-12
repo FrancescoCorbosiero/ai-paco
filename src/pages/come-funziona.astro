@@ -1,0 +1,179 @@
+---
+import Base from '../layouts/Base.astro';
+import ChatDemo from '../components/ChatDemo.astro';
+import SectionHead from '../components/SectionHead.astro';
+import CtaBand from '../components/CtaBand.astro';
+
+const rules = [
+  {
+    t: 'Si presenta sempre',
+    d: '«Sono Paco, l’assistente di…» è il primo messaggio, ogni volta. Mai fingersi umano, mai fingersi il titolare.',
+  },
+  {
+    t: 'Non inventa',
+    d: 'Risponde solo con le informazioni del tuo sito. Se non sa, lo dice — e chiede a te. Nei mestieri con responsabilità professionale non dà pareri: raccoglie e passa la mano.',
+  },
+  {
+    t: 'Ti passa la mano quando conta',
+    d: 'Richieste particolari, lamentele, trattative: arrivano a te con un riepilogo ordinato, non trenta messaggi da rileggere.',
+  },
+  {
+    t: 'Si può sempre tornare indietro',
+    d: '«Annulla l’ultima modifica» funziona sempre. E per le modifiche importanti Paco chiede conferma prima di pubblicare.',
+  },
+];
+---
+
+<Base
+  title="Come funziona"
+  description="Dal primo messaggio WhatsApp al sito online, gli aggiornamenti scrivendo in chat, le risposte automatiche ai clienti con passaggio a te quando serve: come funziona Paco, mostrato con le conversazioni."
+>
+  <section class="section pagehero">
+    <div class="container stack">
+      <p class="eyebrow">Come funziona</p>
+      <h1 class="display">Racconti la tua attività. Il resto lo fa Paco.</h1>
+      <p class="lede">
+        Tre momenti: il sito che nasce, il sito che resta aggiornato, i clienti che ricevono
+        risposta. Tutto da WhatsApp, tutto mostrato qui sotto con conversazioni d’esempio — simulate,
+        come è giusto dire.
+      </p>
+    </div>
+  </section>
+
+  <section class="section journey" aria-labelledby="j1">
+    <div class="container journey__grid">
+      <div class="journey__copy stack">
+        <SectionHead
+          eyebrow="Primo momento"
+          title="Il sito nasce in chat"
+          lede="Paco ti fa qualche domanda, una alla volta: che attività è, dove sei, orari, servizi. Rispondi quando hai un attimo — anche a distanza di ore, lui riprende da dove eravate."
+        />
+        <ul class="journey__points">
+          <li>Il listino si manda <strong>con una foto</strong>: lo legge Paco e lo mette in ordine.</li>
+          <li>L’anteprima arriva in chat: le modifiche le chiedi <strong>a parole</strong>.</li>
+          <li>Quando ti piace, Paco pubblica: dominio, certificati e dettagli tecnici sono affar suo.</li>
+          <li>Obiettivo dell’early access: <strong>online in un paio di giorni</strong>, con mezz’ora del tuo tempo in tutto.</li>
+        </ul>
+      </div>
+      <ChatDemo demo="parrucchieri" />
+    </div>
+  </section>
+
+  <section class="section journey journey--alt" aria-labelledby="j2">
+    <div class="container journey__grid journey__grid--flip">
+      <ChatDemo demo="hero" />
+      <div class="journey__copy stack">
+        <SectionHead
+          eyebrow="Secondo momento"
+          title="Aggiornare è un messaggio"
+          lede="La friggitrice si rompe alle 17:40 di un venerdì. Con un pannello non lo aggiorneresti mai; con Paco sono dieci secondi, e i clienti che scrivono vengono avvisati."
+        />
+        <ul class="journey__points">
+          <li>Modifiche in linguaggio naturale: orari, ferie, prezzi, menù, foto.</li>
+          <li>Le offerte con scadenza <strong>si spengono da sole</strong>.</li>
+          <li>Modifica importante? Paco <strong>chiede conferma</strong> prima. E «annulla» funziona sempre.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section journey" aria-labelledby="j3">
+    <div class="container journey__grid">
+      <div class="journey__copy stack">
+        <SectionHead
+          eyebrow="Terzo momento"
+          title="Ai clienti risponde Paco. Tu, quando conta."
+          lede="Le 21:50, una perdita d’acqua, il titolare a cena. Il cliente riceve subito un consiglio utile e onesto; al titolare arriva una richiesta già ordinata, non una chiamata persa."
+        />
+        <ul class="journey__points">
+          <li>Risposte immediate, a qualsiasi ora, <strong>solo con le informazioni del tuo sito</strong>.</li>
+          <li>L’handoff è <strong>un riepilogo</strong>: cosa, dove, quanto urgente, come ricontattare.</li>
+          <li>Se non rispondi nei tempi, Paco avvisa il cliente con garbo e prende un recapito.</li>
+        </ul>
+      </div>
+      <ChatDemo demo="artigiani" />
+    </div>
+  </section>
+
+  <section class="section rules" aria-labelledby="regole-title">
+    <div class="container">
+      <SectionHead
+        eyebrow="Le regole di Paco"
+        title="Quattro regole, nessuna eccezione."
+        lede="Un assistente che parla a nome tuo deve meritarsi la fiducia. Queste regole sono scritte nel prodotto, non nelle buone intenzioni."
+      />
+      <div class="rules__grid">
+        {
+          rules.map((r) => (
+            <article class="card">
+              <h3>{r.t}</h3>
+              <p class="muted">{r.d}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    title="Vuoi vederlo sul tuo mestiere?"
+    lede="Ristoranti, saloni, artigiani, professionisti: ogni settore ha la sua pagina, con le sue conversazioni."
+  />
+</Base>
+
+<style>
+  .pagehero {
+    border-bottom: 1px solid var(--line);
+  }
+  .pagehero .container {
+    max-width: 56rem;
+  }
+  .journey__grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: var(--space-6);
+    align-items: center;
+  }
+  .journey--alt {
+    background: var(--surface);
+    border-block: 1px solid var(--line);
+  }
+  .journey__grid--flip {
+    grid-template-columns: 1fr 1.1fr;
+  }
+  .journey__points {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: var(--space-3);
+  }
+  .journey__points li {
+    border-inline-start: 3px solid var(--accent);
+    padding-inline-start: var(--space-3);
+    color: var(--ink-dim);
+  }
+  .journey__points strong {
+    color: var(--ink);
+  }
+  .rules__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+  }
+  .rules__grid h3 {
+    margin-block-end: var(--space-2);
+  }
+  @media (max-width: 56rem) {
+    .journey__grid,
+    .journey__grid--flip {
+      grid-template-columns: 1fr;
+    }
+    .journey__grid > :global(.chat-demo) {
+      justify-self: center;
+      order: 2;
+    }
+    .rules__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

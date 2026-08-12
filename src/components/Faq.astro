@@ -1,0 +1,70 @@
+---
+export interface FaqItem {
+  q: string;
+  /** risposta: testo semplice, può contenere <a> */
+  a: string;
+}
+
+interface Props {
+  items: FaqItem[];
+}
+const { items } = Astro.props;
+---
+
+<div class="faq">
+  {
+    items.map((item) => (
+      <details class="faq__item">
+        <summary>
+          <h3>{item.q}</h3>
+          <span class="faq__marker" aria-hidden="true">
+            +
+          </span>
+        </summary>
+        <div class="faq__answer" set:html={item.a} />
+      </details>
+    ))
+  }
+</div>
+
+<style>
+  .faq {
+    display: grid;
+    border-top: 1px solid var(--line);
+    max-width: 46rem;
+  }
+  .faq__item {
+    border-bottom: 1px solid var(--line);
+  }
+  .faq__item summary {
+    list-style: none;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-3);
+    padding-block: var(--space-3);
+    cursor: pointer;
+  }
+  .faq__item summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq__item summary h3 {
+    font-size: 1.05rem;
+    font-weight: 800;
+  }
+  .faq__marker {
+    font-family: var(--font-mono);
+    color: var(--accent-text);
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    transition: transform var(--t-fast) var(--ease);
+  }
+  .faq__item[open] .faq__marker {
+    transform: rotate(45deg);
+  }
+  .faq__answer {
+    padding-block-end: var(--space-4);
+    color: var(--ink-dim);
+    max-width: 40em;
+  }
+</style>

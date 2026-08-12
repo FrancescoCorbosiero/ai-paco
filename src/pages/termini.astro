@@ -1,0 +1,98 @@
+---
+import Base from '../layouts/Base.astro';
+
+const updated = '12 agosto 2026';
+---
+
+<Base
+  title="Termini d’uso"
+  description="Termini d’uso della piattaforma di lancio di Paco: cosa comporta (e cosa no) l’iscrizione alla lista d’attesa, prezzi di lancio, proprietà dei contenuti."
+>
+  <section class="section">
+    <div class="container legal">
+      <p class="eyebrow">Legale</p>
+      <h1 class="display">Termini d’uso</h1>
+      <p class="legal__notice mono">
+        Bozza in revisione legale · aggiornata al {updated}
+      </p>
+
+      <div class="prose">
+        <h2>1. Cosa è questo sito</h2>
+        <p>
+          Questo sito presenta <strong>Paco</strong>, un servizio di Alpacode
+          <strong>[da completare: ragione sociale]</strong> attualmente in fase di pre-lancio, e
+          raccoglie le iscrizioni alla lista d’attesa per l’early access. Le conversazioni
+          mostrate nelle pagine sono <strong>dimostrazioni simulate</strong>, con nomi e attività
+          di fantasia: lo dichiariamo accanto a ciascuna.
+        </p>
+
+        <h2>2. La lista d’attesa non è un contratto</h2>
+        <p>
+          Iscriversi alla lista d’attesa è gratuito e non impegna nessuno: né te ad acquistare,
+          né noi ad attivarti entro una data. L’iscrizione dà un ordine di priorità per l’early
+          access; l’attivazione del servizio, quando disponibile, sarà regolata da condizioni
+          contrattuali dedicate che riceverai prima di pagare qualsiasi cosa.
+        </p>
+
+        <h2>3. Prezzi indicati sul sito</h2>
+        <p>
+          I prezzi pubblicati sono <strong>prezzi di lancio dell’early access</strong> e possono
+          cambiare fino alla sottoscrizione del servizio. Ciò che non cambia: le condizioni
+          riservate ai fondatori (tariffa bloccata finché l’abbonamento resta attivo) valgono per
+          chi attiva il servizio a quelle condizioni, come descritto nella pagina
+          <a href="/prezzi">Prezzi</a>. Tutti i prezzi si intendono IVA esclusa.
+        </p>
+
+        <h2>4. Il servizio è in costruzione</h2>
+        <p>
+          Le funzionalità descritte al presente sono quelle previste per l’early access; quelle
+          descritte al futuro («in arrivo») non sono ancora disponibili e potrebbero cambiare.
+          Durante l’early access il servizio è dichiaratamente in evoluzione: può avere difetti,
+          e il feedback dei fondatori serve proprio a correggerli.
+        </p>
+
+        <h2>5. Proprietà intellettuale</h2>
+        <p>
+          I contenuti di questo sito (testi, grafica, marchio Paco) sono di Alpacode: non puoi
+          riutilizzarli commercialmente senza permesso. Specularmente, i contenuti che un domani
+          fornirai a Paco per il tuo sito (testi, foto, listini) <strong>restano tuoi</strong>.
+        </p>
+
+        <h2>6. Uso corretto del sito</h2>
+        <p>
+          Non è consentito usare il modulo di iscrizione per invii automatizzati, caricare
+          contenuti illeciti o tentare di compromettere il funzionamento del sito. Applichiamo
+          misure tecniche (tra cui il rate limiting) per proteggere il servizio.
+        </p>
+
+        <h2>7. Legge applicabile e foro</h2>
+        <p>
+          Questi termini sono regolati dalla legge italiana. Per ogni controversia è competente
+          il foro di <strong>[da completare]</strong>, fatti salvi i fori inderogabili previsti
+          per i consumatori.
+        </p>
+
+        <h2>8. Contatti</h2>
+        <p>
+          Per qualsiasi domanda su questi termini: <strong>[da completare: email]</strong>, o su
+          WhatsApp — come sempre.
+        </p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .legal {
+    max-width: 46rem;
+    display: grid;
+    gap: var(--space-4);
+  }
+  .legal__notice {
+    font-size: var(--text-label);
+    color: var(--ink-mute);
+    border: 1px dashed var(--line);
+    padding: var(--space-2) var(--space-3);
+    justify-self: start;
+  }
+</style>

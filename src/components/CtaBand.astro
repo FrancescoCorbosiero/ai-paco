@@ -1,0 +1,51 @@
+---
+import WhatsAppCta from './WhatsAppCta.astro';
+import { TAGLINE } from '../config';
+import { t } from '../i18n/ui';
+
+interface Props {
+  title?: string;
+  lede?: string;
+}
+const {
+  title = TAGLINE,
+  lede = 'I posti fondatori sono 50 in tutto. Iscriverti alla lista d’attesa non costa niente e non ti impegna a niente.',
+} = Astro.props;
+---
+
+<section class="cta-band">
+  <div class="container cta-band__inner">
+    <h2 class="display">{title}</h2>
+    <p class="lede">{lede}</p>
+    <div class="cta-band__actions">
+      <a class="btn btn--primary" href="/early-access">{t('cta.earlyAccess')}</a>
+      <WhatsAppCta fallbackHref="/come-funziona" fallbackLabel={t('cta.comeFunziona')} />
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-band {
+    background: var(--surface);
+    border-block: 1px solid var(--line);
+    padding-block: var(--section);
+    text-align: center;
+  }
+  .cta-band__inner {
+    display: grid;
+    justify-items: center;
+    gap: var(--space-4);
+  }
+  .cta-band h2 {
+    font-size: clamp(2rem, 1.4rem + 3vw, 3.4rem);
+  }
+  .cta-band .lede {
+    margin-inline: auto;
+  }
+  .cta-band__actions {
+    display: flex;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+</style>

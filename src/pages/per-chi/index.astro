@@ -1,0 +1,117 @@
+---
+import Base from '../../layouts/Base.astro';
+import CtaBand from '../../components/CtaBand.astro';
+
+const verticals = [
+  {
+    href: '/per-chi/ristoranti',
+    label: 'Ristoranti e pizzerie',
+    d: 'Menù sempre giusto, offerte che si spengono da sole, prenotazioni raccolte mentre sei in servizio.',
+  },
+  {
+    href: '/per-chi/parrucchieri',
+    label: 'Parrucchieri ed estetiste',
+    d: 'Listino aggiornato con una foto, richieste di appuntamento ordinate, il salone che sembra vivo perché lo è.',
+  },
+  {
+    href: '/per-chi/artigiani',
+    label: 'Artigiani',
+    d: 'Le urgenze diventano richieste qualificate con zona e foto, non chiamate perse mentre lavori.',
+  },
+  {
+    href: '/per-chi/professionisti',
+    label: 'Professionisti e studi',
+    d: 'Lo studio presentato bene e i contatti già qualificati. I pareri restano tuoi: Paco prepara la domanda.',
+  },
+];
+---
+
+<Base
+  title="Per chi è Paco"
+  description="Paco è fatto per le piccole attività italiane il cui titolare ha le mani occupate: ristoranti, parrucchieri, artigiani, professionisti. Ogni settore ha la sua pagina, con le sue conversazioni d’esempio."
+>
+  <section class="section">
+    <div class="container stack pagehead">
+      <p class="eyebrow">Per chi</p>
+      <h1 class="display">Fatto per chi ha le mani occupate.</h1>
+      <p class="lede">
+        Paco non è per chi vuole passare le serate a sistemare il sito: è per chi non ce le ha, le
+        serate. Scegli il tuo mestiere e guarda come lavora — con conversazioni d’esempio scritte
+        sul tuo quotidiano.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="container hub">
+      {
+        verticals.map((v) => (
+          <a class="hub__card" href={v.href}>
+            <h2 class="display">{v.label}</h2>
+            <p class="muted">{v.d}</p>
+            <span class="mono hub__arrow" aria-hidden="true">
+              →
+            </span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container stack pagehead">
+      <h2 class="display">Non ti ritrovi in nessuna di queste?</h2>
+      <p class="lede">
+        Bar, palestre, b&b, negozi, tuttofare: se la tua giornata assomiglia a quelle qui sopra —
+        clienti che scrivono, informazioni che cambiano, zero tempo per i pannelli — Paco funziona
+        uguale. <a href="/early-access">Mettiti in lista</a> e raccontaci che attività hai.
+      </p>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>
+
+<style>
+  .pagehead {
+    max-width: 56rem;
+  }
+  .hub {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+  }
+  .hub__card {
+    position: relative;
+    display: grid;
+    gap: var(--space-2);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    padding: var(--space-5);
+    text-decoration: none;
+    color: var(--ink);
+    transition:
+      transform var(--t-fast) var(--ease),
+      box-shadow var(--t-fast) var(--ease),
+      border-color var(--t-fast) var(--ease);
+  }
+  .hub__card:hover {
+    border-color: var(--accent);
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow);
+  }
+  .hub__card h2 {
+    font-size: 1.5rem;
+  }
+  .hub__arrow {
+    position: absolute;
+    top: var(--space-4);
+    inset-inline-end: var(--space-4);
+    color: var(--accent-text);
+  }
+  @media (max-width: 48rem) {
+    .hub {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

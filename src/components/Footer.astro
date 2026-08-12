@@ -1,0 +1,125 @@
+---
+import Logo from './Logo.astro';
+import WhatsAppCta from './WhatsAppCta.astro';
+import { ALPACODE_URL, TAGLINE } from '../config';
+import { t } from '../i18n/ui';
+
+const year = 2026;
+---
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand stack">
+        <Logo />
+        <p class="footer__tagline display">{TAGLINE}</p>
+        <p class="muted">
+          {t('footer.byline')}
+          <a href={ALPACODE_URL} rel="noopener">Alpacode</a>
+        </p>
+        <WhatsAppCta class="btn btn--ghost footer__wa" />
+      </div>
+
+      <nav aria-label={t('footer.prodotto')}>
+        <h2 class="eyebrow">{t('footer.prodotto')}</h2>
+        <ul>
+          <li><a href="/come-funziona">Come funziona</a></li>
+          <li><a href="/prezzi">Prezzi</a></li>
+          <li><a href="/early-access">Early access</a></li>
+          <li><a href="/faq">Domande frequenti</a></li>
+        </ul>
+      </nav>
+
+      <nav aria-label={t('footer.settori')}>
+        <h2 class="eyebrow">{t('footer.settori')}</h2>
+        <ul>
+          <li><a href="/per-chi/ristoranti">Ristoranti e pizzerie</a></li>
+          <li><a href="/per-chi/parrucchieri">Parrucchieri ed estetiste</a></li>
+          <li><a href="/per-chi/artigiani">Artigiani</a></li>
+          <li><a href="/per-chi/professionisti">Professionisti</a></li>
+        </ul>
+      </nav>
+
+      <nav aria-label={t('footer.risorse')}>
+        <h2 class="eyebrow">{t('footer.risorse')}</h2>
+        <ul>
+          <li><a href="/manifesto">Manifesto</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/rss.xml">Feed RSS</a></li>
+        </ul>
+      </nav>
+
+      <nav aria-label={t('footer.legale')}>
+        <h2 class="eyebrow">{t('footer.legale')}</h2>
+        <ul>
+          <li><a href="/privacy">Privacy</a></li>
+          <li><a href="/cookie">Cookie</a></li>
+          <li><a href="/termini">Termini</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="footer__bottom">
+      <p class="mono">© {year} Alpacode · P. IVA [da completare] · Tutti i diritti riservati</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top: 1px solid var(--line);
+    background: var(--surface);
+    padding-block: var(--space-6) var(--space-4);
+    margin-block-start: var(--section);
+  }
+  .footer__grid {
+    display: grid;
+    grid-template-columns: 2fr repeat(4, 1fr);
+    gap: var(--space-5);
+  }
+  .footer__tagline {
+    font-size: 1.3rem;
+  }
+  .footer__wa {
+    font-size: 0.9rem;
+    padding: 0.55em 1em;
+  }
+  .footer h2 {
+    margin-block-end: var(--space-3);
+  }
+  .footer ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 0.6rem;
+  }
+  .footer ul a {
+    color: var(--ink-dim);
+    text-decoration: none;
+    font-size: 0.95rem;
+  }
+  .footer ul a:hover {
+    color: var(--ink);
+    text-decoration: underline;
+  }
+  .footer__bottom {
+    margin-block-start: var(--space-6);
+    padding-block-start: var(--space-4);
+    border-top: 1px solid var(--line);
+    color: var(--ink-mute);
+    font-size: var(--text-label);
+  }
+  @media (max-width: 60rem) {
+    .footer__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .footer__brand {
+      grid-column: 1 / -1;
+    }
+  }
+  @media (max-width: 30rem) {
+    .footer__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,70 @@
+/*
+ * Design token di Paco — implementazione 1:1 di docs/brand/03-identita-visiva.md
+ * Tema scuro = default di brand; tema chiaro segue prefers-color-scheme.
+ * Angoli vivi ovunque: nessun border-radius in tutto il sito.
+ */
+
+:root {
+  color-scheme: dark light;
+
+  /* — palette (scuro, default) — */
+  --bg: #0a0f0c;
+  --surface: #111a14;
+  --surface-2: #16221a;
+  --line: #233129;
+  --ink: #e9f2eb;
+  --ink-dim: #a4b8aa;
+  --ink-mute: #7e9584;
+  --accent: #25d366;
+  --accent-text: #25d366; /* nel tema scuro l'accento regge il testo (9,7:1 su --bg) */
+  --accent-press: #1db457;
+  --on-accent: #06130b;
+  --bubble-in: #152019;
+  --bubble-out: #0e3b22;
+  --shadow: 6px 6px 0 rgba(0, 0, 0, 0.35);
+
+  /* — tipografia — */
+  --font-display: 'Archivo Black', 'Arial Black', sans-serif;
+  --font-body: 'Manrope Variable', 'Manrope', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, monospace;
+
+  --text-hero: clamp(2.2rem, 1.2rem + 4.2vw, 4.1rem);
+  --text-h2: clamp(1.65rem, 1.15rem + 1.9vw, 2.5rem);
+  --text-h3: clamp(1.12rem, 1rem + 0.5vw, 1.35rem);
+  --text-body: 1.0625rem;
+  --text-small: 0.875rem;
+  --text-label: 0.75rem;
+
+  /* — spazio e layout — */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2.5rem;
+  --space-6: 4rem;
+  --section: clamp(3.5rem, 2.5rem + 5vw, 7rem);
+  --container: 72rem;
+
+  /* — movimento — */
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --t-fast: 160ms;
+  --t-med: 240ms;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #f2f7f3;
+    --surface: #ffffff;
+    --surface-2: #e7f0e9;
+    --line: #cbdccf;
+    --ink: #10231a;
+    --ink-dim: #41584a;
+    --ink-mute: #53695b;
+    /* #25D366 resta per la grafica; per il testo serve un verde AA sul chiaro */
+    --accent-text: #0b7a3c;
+    --accent-press: #0a6832;
+    --bubble-in: #ffffff;
+    --bubble-out: #d3f2de;
+    --shadow: 6px 6px 0 rgba(16, 35, 26, 0.12);
+  }
+}

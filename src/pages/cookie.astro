@@ -1,0 +1,71 @@
+---
+import Base from '../layouts/Base.astro';
+
+const updated = '12 agosto 2026';
+---
+
+<Base
+  title="Cookie policy"
+  description="Questo sito non usa cookie di profilazione né strumenti di tracciamento: la cookie policy della piattaforma di lancio di Paco."
+>
+  <section class="section">
+    <div class="container legal">
+      <p class="eyebrow">Legale</p>
+      <h1 class="display">Cookie policy</h1>
+      <p class="legal__notice mono">
+        Bozza in revisione legale · aggiornata al {updated}
+      </p>
+
+      <div class="prose">
+        <h2>La versione corta</h2>
+        <p>
+          <strong>Questo sito non usa cookie di profilazione, né pixel, né strumenti di
+          tracciamento pubblicitario.</strong> Per questo non vedi banner di consenso: non c'è
+          niente da acconsentire.
+        </p>
+
+        <h2>Cosa usiamo davvero</h2>
+        <ul>
+          <li>
+            <strong>Nessun cookie di profilazione o di terze parti.</strong>
+          </li>
+          <li>
+            <strong>Eventuali cookie o storage tecnici</strong> strettamente necessari al
+            funzionamento del sito (per esempio quelli impostati dall’infrastruttura di hosting
+            per servire le pagine in sicurezza). Non richiedono consenso.
+          </li>
+        </ul>
+
+        <h2>Se in futuro cambiasse qualcosa</h2>
+        <p>
+          Se un giorno aggiungessimo strumenti di misurazione, sceglieremo prima soluzioni senza
+          cookie e rispettose della privacy; qualunque cosa richieda un consenso verrà chiesta
+          con un banner fatto come si deve, e questa pagina verrà aggiornata prima.
+        </p>
+
+        <h2>Link esterni</h2>
+        <p>
+          I pulsanti «Scrivi a Paco su WhatsApp» aprono WhatsApp, un servizio di Meta: da lì in
+          poi valgono l’<a href="https://www.whatsapp.com/legal/privacy-policy-eea" rel="noopener"
+          >informativa privacy di WhatsApp</a> e le sue impostazioni. Lo stesso vale per i link
+          verso siti di terzi.
+        </p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .legal {
+    max-width: 46rem;
+    display: grid;
+    gap: var(--space-4);
+  }
+  .legal__notice {
+    font-size: var(--text-label);
+    color: var(--ink-mute);
+    border: 1px dashed var(--line);
+    padding: var(--space-2) var(--space-3);
+    justify-self: start;
+  }
+</style>

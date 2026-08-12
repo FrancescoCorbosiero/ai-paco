@@ -47,7 +47,7 @@
 | `--line` | `#233129` | bordi 1px, divisori |
 | `--ink` | `#E9F2EB` | testo primario |
 | `--ink-dim` | `#A4B8AA` | testo secondario |
-| `--ink-mute` | `#6E8577` | didascalie, timestamp |
+| `--ink-mute` | `#7E9584` | didascalie, timestamp |
 | `--accent` | `#25D366` | azioni primarie, messaggi di Paco, evidenze |
 | `--accent-press` | `#1DB457` | stato attivo/hover dell'accento |
 | `--on-accent` | `#06130B` | testo su fondo accento |
@@ -69,7 +69,7 @@ Contrasti verificati (AA): `--ink` su `--bg` ≈ 15:1; `--accent` su
 | `--line` | `#CBDCCF` | bordi |
 | `--ink` | `#10231A` | testo primario |
 | `--ink-dim` | `#41584A` | testo secondario |
-| `--ink-mute` | `#5E7566` | didascalie |
+| `--ink-mute` | `#53695B` | didascalie |
 | `--accent` | `#25D366` | **solo grafica** (bolle, icone, bordi) |
 | `--accent-text` | `#0B7A3C` | link e testo accentato (AA su chiaro) |
 | `--accent-press` | `#0A6832` | stati attivi |

@@ -1,0 +1,77 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import CtaBand from '../../components/CtaBand.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const fmt = new Intl.DateTimeFormat('it-IT', { day: 'numeric', month: 'long', year: 'numeric' });
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.pubDate.toISOString(),
+  ...(post.data.updatedDate && { dateModified: post.data.updatedDate.toISOString() }),
+  inLanguage: 'it-IT',
+  author: { '@type': 'Organization', name: 'Alpacode', url: 'https://alpacode.it' },
+  publisher: { '@type': 'Organization', name: 'Alpacode' },
+  mainEntityOfPage: new URL(`/blog/${post.id}`, Astro.site).toString(),
+};
+---
+
+<Base
+  title={post.data.title}
+  description={post.data.description}
+  ogType="article"
+  ogImage={`/og/blog/${post.id}.png`}
+  schema={schema}
+>
+  <article class="section">
+    <div class="container post">
+      <header class="post__head">
+        <p class="mono post__date">
+          <time datetime={post.data.pubDate.toISOString()}>{fmt.format(post.data.pubDate)}</time>
+          {post.data.tags.length > 0 && <span> · {post.data.tags.join(' · ')}</span>}
+        </p>
+        <h1 class="display">{post.data.title}</h1>
+        <p class="lede">{post.data.description}</p>
+      </header>
+      <div class="prose">
+        <Content />
+      </div>
+      <p class="post__back"><a href="/blog">← Tutti gli articoli</a></p>
+    </div>
+  </article>
+
+  <CtaBand />
+</Base>
+
+<style>
+  .post {
+    max-width: 46rem;
+    display: grid;
+    gap: var(--space-5);
+  }
+  .post__head {
+    display: grid;
+    gap: var(--space-3);
+  }
+  .post__head h1 {
+    font-size: clamp(1.9rem, 1.2rem + 2.8vw, 3rem);
+  }
+  .post__date {
+    font-size: var(--text-label);
+    color: var(--ink-mute);
+  }
+  .post__back {
+    font-weight: 600;
+  }
+</style>

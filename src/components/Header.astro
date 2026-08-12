@@ -1,0 +1,157 @@
+---
+import Logo from './Logo.astro';
+import { t } from '../i18n/ui';
+
+const nav = [
+  { href: '/come-funziona', label: t('nav.comeFunziona') },
+  { href: '/per-chi', label: t('nav.perChi') },
+  { href: '/prezzi', label: t('nav.prezzi') },
+  { href: '/manifesto', label: t('nav.manifesto') },
+  { href: '/blog', label: t('nav.blog') },
+];
+const current = Astro.url.pathname;
+const isCurrent = (href: string) => current === href || current.startsWith(`${href}/`);
+---
+
+<header class="header">
+  <div class="container header__inner">
+    <a class="header__brand" href="/" aria-label="Paco — home">
+      <Logo />
+    </a>
+
+    <nav class="header__nav" aria-label="Principale">
+      <ul>
+        {
+          nav.map((item) => (
+            <li>
+              <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <a class="btn btn--primary header__cta" href="/early-access">{t('nav.earlyAccess')}</a>
+    </nav>
+
+    <details class="header__mobile">
+      <summary>
+        <span class="mono">{t('nav.menu')}</span>
+      </summary>
+      <nav aria-label="Principale (mobile)">
+        <ul>
+          {
+            nav.map((item) => (
+              <li>
+                <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+          <li><a href="/faq">{t('nav.faq')}</a></li>
+          <li>
+            <a class="btn btn--primary" href="/early-access">{t('nav.earlyAccess')}</a>
+          </li>
+        </ul>
+      </nav>
+    </details>
+  </div>
+</header>
+
+<style>
+  .header {
+    border-bottom: 1px solid var(--line);
+    background: var(--bg);
+    position: relative;
+    z-index: 20;
+  }
+  .header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    padding-block: 0.9rem;
+  }
+  .header__brand {
+    text-decoration: none;
+  }
+  .header__nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+  }
+  .header__nav ul {
+    display: flex;
+    gap: var(--space-4);
+    list-style: none;
+    padding: 0;
+  }
+  .header__nav a:not(.btn) {
+    color: var(--ink-dim);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+  .header__nav a:not(.btn):hover,
+  .header__nav a[aria-current='page'] {
+    color: var(--ink);
+  }
+  .header__nav a[aria-current='page'] {
+    box-shadow: inset 0 -2px 0 var(--accent);
+  }
+  .header__cta {
+    padding: 0.55em 1em;
+    font-size: 0.9rem;
+  }
+
+  .header__mobile {
+    display: none;
+    position: relative;
+  }
+  .header__mobile summary {
+    list-style: none;
+    cursor: pointer;
+    border: 1px solid var(--line);
+    padding: 0.5em 0.9em;
+    font-size: var(--text-label);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .header__mobile summary::-webkit-details-marker {
+    display: none;
+  }
+  .header__mobile[open] summary {
+    background: var(--surface-2);
+  }
+  .header__mobile nav {
+    position: absolute;
+    inset-inline-end: 0;
+    top: calc(100% + 0.5rem);
+    min-width: 15rem;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+    padding: var(--space-3);
+  }
+  .header__mobile ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: var(--space-3);
+  }
+  .header__mobile a:not(.btn) {
+    color: var(--ink);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  @media (max-width: 52rem) {
+    .header__nav {
+      display: none;
+    }
+    .header__mobile {
+      display: block;
+    }
+  }
+</style>

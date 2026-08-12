@@ -1,0 +1,199 @@
+---
+import Base from '../layouts/Base.astro';
+import SectionHead from '../components/SectionHead.astro';
+import PricingCards from '../components/PricingCards.astro';
+import Faq from '../components/Faq.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { tiers, pricingDisclaimers } from '../data/pricing';
+import { FOUNDERS_SEATS, SITE_NAME } from '../config';
+
+const alternatives = [
+  {
+    t: 'Agenzia o freelance',
+    cost: 'preventivo una tantum + ogni modifica fatturata',
+    hidden: 'i tempi: giorni o settimane per ogni cambiamento',
+  },
+  {
+    t: 'Site builder fai-da-te',
+    cost: 'canone basso',
+    hidden: 'il costo vero: il tuo tempo, per imparare e per aggiornare',
+  },
+  {
+    t: 'Il nipote bravo col computer',
+    cost: '«gratis»',
+    hidden: 'il sito muore quando il nipote si stanca',
+  },
+  {
+    t: 'Solo social e scheda Google',
+    cost: 'zero',
+    hidden: 'orari sbagliati, zero controllo, domande senza risposta',
+  },
+];
+
+const faqs = [
+  {
+    q: 'I prezzi sono definitivi?',
+    a: 'Sono i prezzi di lancio dell’early access e potranno cambiare al lancio pubblico. Una cosa però non cambia: chi attiva a una tariffa se la tiene finché resta — a partire dai fondatori, con Assistente a 39 € invece di 59.',
+  },
+  {
+    q: 'Ci sono costi nascosti? Setup, modifiche, assistenza?',
+    a: 'No. Il canone include creazione del sito, hosting, aggiornamenti illimitati via chat e assistenza. Nessun costo di realizzazione, nessuna modifica fatturata. I prezzi si intendono IVA esclusa.',
+  },
+  {
+    q: 'Posso disdire quando voglio?',
+    a: 'Sì, dalla chat, e il mese successivo non paghi. Nessun vincolo annuale. I contenuti del sito sono tuoi e te li porti via (export incluso).',
+  },
+  {
+    q: 'Cosa significa esattamente «tariffa fondatori»?',
+    a: `È riservata ai primi ${FOUNDERS_SEATS} che attivano Paco nell’early access: fascia Assistente a 39 €/mese invece di 59, bloccata finché l’abbonamento resta attivo. In cambio ci aspettiamo una cosa sola: che ci dici cosa non va, senza sconti.`,
+  },
+  {
+    q: 'Serve pagare per mettersi in lista d’attesa?',
+    a: 'No: la <a href="/early-access">lista d’attesa</a> è gratuita e non impegna. Si paga solo se e quando attivi Paco.',
+  },
+];
+
+const productSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: SITE_NAME,
+  description:
+    'Assistente AI che crea e gestisce il sito web di una piccola attività da WhatsApp.',
+  brand: { '@type': 'Brand', name: 'Alpacode' },
+  offers: tiers.map((tier) => ({
+    '@type': 'Offer',
+    name: `${SITE_NAME} ${tier.name}`,
+    price: String(tier.founders?.price ?? tier.price),
+    priceCurrency: 'EUR',
+    availability: 'https://schema.org/PreOrder',
+    url: new URL('/prezzi', Astro.site).toString(),
+  })),
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a.replace(/<[^>]+>/g, '') },
+  })),
+};
+---
+
+<Base
+  title="Prezzi"
+  description="Un canone mensile chiaro, tutto incluso: sito creato da Paco, aggiornamenti illimitati via WhatsApp, risposte automatiche ai clienti. Tariffa fondatori per i primi 50 dell’early access. IVA esclusa, disdetta quando vuoi."
+  schema={[productSchema, faqSchema]}
+>
+  <section class="section pagehero">
+    <div class="container stack">
+      <p class="eyebrow">Prezzi di lancio</p>
+      <h1 class="display">Un canone chiaro. Nessun preventivo.</h1>
+      <p class="lede">
+        Il sito non lo paghi: paghi un collaboratore che lo fa, lo tiene vivo e risponde ai tuoi
+        clienti. Tutto incluso, IVA esclusa, disdici quando vuoi.
+      </p>
+    </div>
+  </section>
+
+  <section class="section founders-band" aria-label="Tariffa fondatori">
+    <div class="container founders-band__inner">
+      <p class="badge badge--solid">Tariffa fondatori · {FOUNDERS_SEATS} posti</p>
+      <p class="founders-band__text">
+        I primi {FOUNDERS_SEATS} che attivano Paco nell’early access hanno la fascia
+        <strong>Assistente a 39 €/mese invece di 59</strong> — bloccata finché restano. Quando i
+        posti finiscono, finiscono: il contatore è vero.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--tight" aria-labelledby="fasce-title">
+    <div class="container">
+      <h2 class="sr-only" id="fasce-title">Le tre fasce</h2>
+      <PricingCards />
+      <ul class="disclaimers">
+        {pricingDisclaimers.map((d) => <li class="mono">{d}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHead
+        eyebrow="Il paragone onesto"
+        title="Le alternative le conosci già."
+        lede="Non ti diciamo che sono sbagliate: per qualcuno vanno benissimo. Ti diciamo cosa costano davvero."
+      />
+      <div class="alt-grid">
+        {
+          alternatives.map((a) => (
+            <article class="card">
+              <h3>{a.t}</h3>
+              <p class="mono alt-grid__cost">{a.cost}</p>
+              <p class="muted">Il costo nascosto: {a.hidden}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="container">
+      <SectionHead title="Domande sui prezzi" />
+      <Faq items={faqs} />
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>
+
+<style>
+  .pagehero {
+    border-bottom: 1px solid var(--line);
+  }
+  .pagehero .container {
+    max-width: 56rem;
+  }
+  .founders-band {
+    padding-block: var(--space-4);
+    background: var(--surface);
+    border-bottom: 1px solid var(--line);
+  }
+  .founders-band__inner {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+  }
+  .founders-band__text {
+    max-width: 46em;
+  }
+  .disclaimers {
+    list-style: none;
+    padding: 0;
+    margin-block-start: var(--space-5);
+    display: grid;
+    gap: var(--space-2);
+    color: var(--ink-mute);
+    font-size: var(--text-label);
+  }
+  .disclaimers li::before {
+    content: '· ';
+    color: var(--accent-text);
+  }
+  .alt-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: var(--space-3);
+  }
+  .alt-grid h3 {
+    margin-block-end: var(--space-2);
+  }
+  .alt-grid__cost {
+    color: var(--accent-text);
+    font-size: var(--text-small);
+    margin-block-end: var(--space-2);
+  }
+</style>

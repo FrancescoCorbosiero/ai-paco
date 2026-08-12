@@ -1,0 +1,414 @@
+---
+import { demos, type DemoId } from '../data/demos';
+import { t } from '../i18n/ui';
+
+/**
+ * Conversazione WhatsApp simulata (sceneggiature: docs/product/05-demo-scripts.md).
+ * - Il testo è nel DOM dal server: leggibile da screen reader e indicizzabile.
+ * - L'animazione è solo visiva (opacity/transform) e parte quando la demo
+ *   entra nel viewport; con prefers-reduced-motion o senza JS la
+ *   conversazione appare intera.
+ */
+interface Props {
+  demo: DemoId;
+  animate?: boolean;
+  showContext?: boolean;
+  class?: string;
+}
+
+const { demo: demoId, animate = true, showContext = true, class: className } = Astro.props;
+const demo = demos[demoId];
+---
+
+<figure class:list={['chat-demo', className]} data-animate={animate ? '' : undefined}>
+  {
+    showContext && (
+      <figcaption class="chat-demo__context">
+        <span class="badge">{t('demo.label')}</span>
+        <span class="chat-demo__scene">{demo.context}</span>
+      </figcaption>
+    )
+  }
+
+  <div class="chat-demo__phone">
+    <div class="chat-demo__bar">
+      <span class="chat-demo__avatar" aria-hidden="true">P</span>
+      <span class="chat-demo__contact">
+        <strong>{demo.contactName}</strong>
+        <small>{demo.contactStatus}</small>
+      </span>
+    </div>
+
+    <div
+      class="chat-demo__thread"
+      tabindex="0"
+      role="group"
+      aria-label={`Conversazione di esempio — ${demo.context}`}
+    >
+      {
+        demo.messages.map((m) => (
+          <>
+            {m.divider && (
+              <p class="chat-demo__divider" data-msg data-from="divider">
+                <span class="mono">{m.divider}</span>
+              </p>
+            )}
+            <div
+              class:list={['msg', m.from === 'paco' ? 'msg--in' : 'msg--out']}
+              data-msg
+              data-from={m.from}
+            >
+              {m.from === 'paco' && (
+                <span class="msg__author mono" aria-hidden="true">
+                  paco
+                </span>
+              )}
+              {m.photo && (
+                <span class="msg__photo" role="img" aria-label="Foto allegata">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <rect x="3" y="6" width="18" height="14" />
+                    <path d="M8 6l2-3h4l2 3" />
+                    <circle cx="12" cy="13" r="3.5" />
+                  </svg>
+                  <span class="mono">foto</span>
+                </span>
+              )}
+              <p class="msg__text">{m.text}</p>
+              <span class="msg__meta mono">
+                {m.time}
+                {m.from !== 'paco' && (
+                  <span class="msg__ticks" aria-hidden="true">
+                    ✓✓
+                  </span>
+                )}
+              </span>
+            </div>
+          </>
+        ))
+      }
+
+      <div class="msg msg--in chat-demo__typing" data-typing hidden aria-hidden="true">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+
+    <div class="chat-demo__controls" data-controls hidden>
+      <button type="button" class="chat-demo__btn mono" data-skip>{t('demo.skip')}</button>
+      <button type="button" class="chat-demo__btn mono" data-replay hidden>
+        ↺ {t('demo.replay')}
+      </button>
+    </div>
+  </div>
+</figure>
+
+<style>
+  .chat-demo {
+    max-width: 26rem;
+    width: 100%;
+  }
+
+  .chat-demo__context {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+    margin-block-end: var(--space-2);
+  }
+  .chat-demo__scene {
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    color: var(--ink-mute);
+  }
+
+  .chat-demo__phone {
+    border: 2px solid var(--line);
+    background: var(--surface);
+    box-shadow: var(--shadow);
+  }
+
+  .chat-demo__bar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 0.7rem 0.9rem;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--line);
+  }
+  .chat-demo__avatar {
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    background: var(--accent);
+    color: var(--on-accent);
+    font-family: var(--font-display);
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+  .chat-demo__contact {
+    display: grid;
+    line-height: 1.25;
+  }
+  .chat-demo__contact strong {
+    font-size: 0.95rem;
+  }
+  .chat-demo__contact small {
+    color: var(--ink-dim);
+    font-size: 0.75rem;
+  }
+
+  .chat-demo__thread {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    padding: 0.9rem;
+    height: 24rem;
+    overflow-y: auto;
+    background-image:
+      linear-gradient(var(--surface-2) 1px, transparent 1px),
+      linear-gradient(90deg, var(--surface-2) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  .msg {
+    position: relative;
+    max-width: 85%;
+    padding: 0.55rem 0.75rem 0.4rem;
+    font-size: 0.92rem;
+    line-height: 1.45;
+  }
+  .msg--in {
+    align-self: flex-start;
+    background: var(--bubble-in);
+    border: 1px solid var(--line);
+  }
+  .msg--out {
+    align-self: flex-end;
+    background: var(--bubble-out);
+  }
+  /* coda quadrata: un pixel, non una goccia */
+  .msg::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    width: 10px;
+    height: 10px;
+    background: inherit;
+  }
+  .msg--in::after {
+    inset-inline-start: -6px;
+  }
+  .msg--out::after {
+    inset-inline-end: -6px;
+  }
+
+  .msg__author {
+    display: block;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    color: var(--accent-text);
+    margin-block-end: 0.15rem;
+  }
+  .msg__text {
+    overflow-wrap: anywhere;
+  }
+  .msg__meta {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.35em;
+    font-size: 0.6875rem;
+    color: var(--ink-dim);
+    margin-block-start: 0.2rem;
+  }
+  .msg__ticks {
+    color: var(--accent-text);
+    letter-spacing: -0.12em;
+  }
+  .msg__photo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    border: 1px dashed var(--line);
+    padding: 0.35rem 0.6rem;
+    margin-block-end: 0.35rem;
+    color: var(--ink-dim);
+    font-size: 0.75rem;
+  }
+
+  .chat-demo__divider {
+    align-self: center;
+    text-align: center;
+    font-size: 0.6875rem;
+    color: var(--ink-mute);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    padding: 0.2rem 0.7rem;
+    margin-block: 0.3rem;
+  }
+
+  /* stato "armato": i messaggi non ancora mostrati sono solo visivamente
+     nascosti (opacity/transform), restano nell'albero di accessibilità */
+  [data-msg] {
+    transition:
+      opacity var(--t-med) var(--ease),
+      transform var(--t-med) var(--ease);
+  }
+  .chat-demo[data-armed] [data-msg]:not(.is-shown) {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  .chat-demo__typing {
+    display: flex;
+    gap: 4px;
+    padding: 0.65rem 0.75rem;
+  }
+  .chat-demo__typing[hidden] {
+    display: none;
+  }
+  .chat-demo__typing span {
+    width: 6px;
+    height: 6px;
+    background: var(--ink-mute);
+    animation: paco-typing 1s infinite var(--ease);
+  }
+  .chat-demo__typing span:nth-child(2) {
+    animation-delay: 0.15s;
+  }
+  .chat-demo__typing span:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+  @keyframes paco-typing {
+    0%,
+    60%,
+    100% {
+      opacity: 0.35;
+      transform: translateY(0);
+    }
+    30% {
+      opacity: 1;
+      transform: translateY(-3px);
+    }
+  }
+
+  .chat-demo__controls {
+    display: flex;
+    gap: var(--space-2);
+    padding: 0.6rem 0.9rem;
+    border-top: 1px solid var(--line);
+  }
+  .chat-demo__controls[hidden] {
+    display: none;
+  }
+  .chat-demo__btn {
+    font-size: 0.6875rem;
+    letter-spacing: 0.04em;
+    background: none;
+    border: 1px solid var(--line);
+    color: var(--ink-dim);
+    padding: 0.35em 0.8em;
+    cursor: pointer;
+  }
+  .chat-demo__btn:hover {
+    color: var(--ink);
+    border-color: var(--accent);
+  }
+</style>
+
+<script>
+  const REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function initDemo(root: HTMLElement): void {
+    const threadEl = root.querySelector<HTMLElement>('.chat-demo__thread');
+    const msgs = Array.from(root.querySelectorAll<HTMLElement>('[data-msg]'));
+    const typingEl = root.querySelector<HTMLElement>('[data-typing]');
+    const controlsEl = root.querySelector<HTMLElement>('[data-controls]');
+    const skipEl = root.querySelector<HTMLButtonElement>('[data-skip]');
+    const replayEl = root.querySelector<HTMLButtonElement>('[data-replay]');
+    if (!threadEl || !typingEl || !controlsEl || !skipEl || !replayEl || msgs.length === 0) return;
+
+    // ri-binding non-null: le funzioni sotto sono hoisted e senza questo
+    // TypeScript perderebbe il narrowing dei controlli qui sopra
+    const thread = threadEl;
+    const typing = typingEl;
+    const controls = controlsEl;
+    const skipBtn = skipEl;
+    const replayBtn = replayEl;
+
+    // Con reduced-motion la conversazione resta interamente visibile.
+    if (REDUCE) return;
+
+    let playing = false;
+    let cancelled = false;
+
+    const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+    const scrollDown = () => {
+      thread.scrollTop = thread.scrollHeight;
+    };
+
+    const arm = () => {
+      root.setAttribute('data-armed', '');
+      for (const m of msgs) m.classList.remove('is-shown');
+      thread.scrollTop = 0;
+    };
+
+    const finish = () => {
+      playing = false;
+      skipBtn.hidden = true;
+      replayBtn.hidden = false;
+    };
+
+    const revealAll = () => {
+      cancelled = true;
+      typing.hidden = true;
+      for (const m of msgs) m.classList.add('is-shown');
+      finish();
+      scrollDown();
+    };
+
+    async function play(): Promise<void> {
+      if (playing) return;
+      playing = true;
+      cancelled = false;
+      arm();
+      skipBtn.hidden = false;
+      replayBtn.hidden = true;
+      for (const m of msgs) {
+        if (cancelled) return;
+        if (m.dataset.from === 'paco') {
+          typing.hidden = false;
+          scrollDown();
+          const length = m.textContent?.length ?? 60;
+          await sleep(Math.min(500 + length * 10, 1400));
+          typing.hidden = true;
+        } else {
+          await sleep(m.dataset.from === 'divider' ? 350 : 550);
+        }
+        if (cancelled) return;
+        m.classList.add('is-shown');
+        scrollDown();
+      }
+      finish();
+    }
+
+    controls.hidden = false;
+    skipBtn.addEventListener('click', revealAll);
+    replayBtn.addEventListener('click', () => void play());
+
+    arm();
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            io.disconnect();
+            void play();
+          }
+        }
+      },
+      { threshold: 0.35 },
+    );
+    io.observe(root);
+  }
+
+  document.querySelectorAll<HTMLElement>('.chat-demo[data-animate]').forEach(initDemo);
+</script>

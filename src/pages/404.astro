@@ -1,0 +1,45 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  title="Pagina non trovata"
+  description="Questa pagina non esiste."
+  noindex
+>
+  <section class="section">
+    <div class="container nf">
+      <p class="mono nf__code">404</p>
+      <h1 class="display">Questa pagina non esiste.</h1>
+      <p class="lede">
+        Il tuo sito, invece, può esistere — e senza che tu debba imparare niente.
+        <a href="/">Torna alla home</a> o dillo a Paco.
+      </p>
+      <div class="nf__actions">
+        <a class="btn btn--primary" href="/">Torna alla home</a>
+        <a class="btn btn--ghost" href="/early-access">Entra in early access</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .nf {
+    max-width: 46rem;
+    display: grid;
+    gap: var(--space-4);
+    justify-items: start;
+    min-height: 45vh;
+    align-content: center;
+  }
+  .nf__code {
+    color: var(--accent-text);
+    font-weight: 700;
+    font-size: 1.2rem;
+  }
+  .nf__actions {
+    display: flex;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+  }
+</style>

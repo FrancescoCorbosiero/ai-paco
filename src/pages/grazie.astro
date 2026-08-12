@@ -1,0 +1,46 @@
+---
+import Base from '../layouts/Base.astro';
+import WhatsAppCta from '../components/WhatsAppCta.astro';
+---
+
+<Base
+  title="Sei in lista"
+  description="Iscrizione alla lista d’attesa di Paco ricevuta."
+  noindex
+>
+  <section class="section">
+    <div class="container thanks">
+      <p class="badge badge--solid">Fatto ✓</p>
+      <h1 class="display">Sei in lista.</h1>
+      <p class="lede">
+        Grazie! Ti scriviamo su WhatsApp quando si apre il tuo posto per l’early access — e solo
+        per quello: niente spam, promesso.
+      </p>
+      <div class="thanks__next stack">
+        <p>
+          Nel frattempo, se vuoi vedere Paco all’opera sul tuo mestiere, le pagine di settore sono
+          il posto giusto:
+        </p>
+        <p class="thanks__links">
+          <a href="/per-chi/ristoranti">Ristoranti</a> ·
+          <a href="/per-chi/parrucchieri">Parrucchieri</a> ·
+          <a href="/per-chi/artigiani">Artigiani</a> ·
+          <a href="/per-chi/professionisti">Professionisti</a>
+        </p>
+      </div>
+      <WhatsAppCta />
+    </div>
+  </section>
+</Base>
+
+<style>
+  .thanks {
+    max-width: 46rem;
+    display: grid;
+    gap: var(--space-4);
+    justify-items: start;
+  }
+  .thanks__links {
+    font-weight: 600;
+  }
+</style>

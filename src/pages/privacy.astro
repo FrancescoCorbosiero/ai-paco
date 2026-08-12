@@ -1,0 +1,104 @@
+---
+import Base from '../layouts/Base.astro';
+
+const updated = '12 agosto 2026';
+---
+
+<Base
+  title="Privacy policy"
+  description="Come trattiamo i dati raccolti dalla piattaforma di lancio di Paco: lista d’attesa, contatti WhatsApp, diritti degli interessati."
+>
+  <section class="section">
+    <div class="container legal">
+      <p class="eyebrow">Legale</p>
+      <h1 class="display">Privacy policy</h1>
+      <p class="legal__notice mono">
+        Bozza in revisione legale · aggiornata al {updated}
+      </p>
+
+      <div class="prose">
+        <h2>1. Titolare del trattamento</h2>
+        <p>
+          Il titolare del trattamento è Alpacode di <strong>[da completare: ragione sociale,
+          sede legale, partita IVA]</strong> («Alpacode», «noi»). Per qualsiasi richiesta sulla
+          privacy puoi scrivere a <strong>[da completare: email di contatto]</strong>.
+        </p>
+
+        <h2>2. Quali dati raccogliamo e perché</h2>
+        <p>Questo sito è la piattaforma di presentazione di Paco. Raccoglie dati personali in un solo punto: il modulo della lista d’attesa.</p>
+        <ul>
+          <li>
+            <strong>Lista d’attesa</strong> (nome e cognome, nome dell’attività, numero
+            WhatsApp): usiamo questi dati per gestire la tua iscrizione, ricontattarti in vista
+            dell’early access e comunicarti l’apertura del tuo posto. Base giuridica: misure
+            precontrattuali adottate su tua richiesta (art. 6.1.b GDPR) e consenso (art. 6.1.a).
+          </li>
+          <li>
+            <strong>Contatto WhatsApp diretto</strong>: se ci scrivi su WhatsApp, il trattamento
+            dei dati avviene anche secondo i termini di WhatsApp (Meta). Usiamo il contenuto della
+            conversazione solo per risponderti.
+          </li>
+          <li>
+            <strong>Dati tecnici di navigazione</strong>: i log del provider di hosting
+            (indirizzi IP, richieste) servono a erogare il sito e a prevenirne gli abusi, incluso
+            il rate limiting del modulo. Non facciamo profilazione.
+          </li>
+        </ul>
+
+        <h2>3. Cosa non facciamo</h2>
+        <ul>
+          <li>Non vendiamo né cediamo i tuoi dati a terzi per finalità di marketing.</li>
+          <li>Non usiamo i tuoi dati per addestrare modelli di intelligenza artificiale.</li>
+          <li>Non prendiamo decisioni automatizzate che producano effetti giuridici su di te.</li>
+          <li>Non inviamo comunicazioni non richieste: ti contattiamo solo per l’early access.</li>
+        </ul>
+
+        <h2>4. Dove finiscono i dati (destinatari)</h2>
+        <p>
+          I dati sono trattati da fornitori tecnici che agiscono come responsabili del
+          trattamento: hosting e infrastruttura (es. Vercel), invio di notifiche email
+          (es. Resend). Alcuni fornitori possono trattare dati fuori dallo Spazio Economico
+          Europeo: in quei casi il trasferimento avviene con le garanzie previste dal GDPR
+          (clausole contrattuali standard).
+        </p>
+
+        <h2>5. Per quanto li conserviamo</h2>
+        <p>
+          I dati della lista d’attesa restano finché dura la fase di lancio e comunque non oltre
+          24 mesi dalla raccolta, salvo che tu diventi cliente (nel qual caso si applicherà
+          l’informativa del servizio) o chieda prima la cancellazione.
+        </p>
+
+        <h2>6. I tuoi diritti</h2>
+        <p>
+          Puoi chiederci in ogni momento accesso, rettifica, cancellazione, limitazione,
+          portabilità dei tuoi dati e opporti al trattamento (artt. 15–22 GDPR), oltre a revocare
+          il consenso. Basta scrivere a <strong>[da completare: email di contatto]</strong> o su
+          WhatsApp. Se ritieni che il trattamento violi la legge, puoi presentare reclamo al
+          Garante per la protezione dei dati personali (gpdp.it).
+        </p>
+
+        <h2>7. Modifiche a questa informativa</h2>
+        <p>
+          Se cambia qualcosa di sostanziale, aggiorniamo questa pagina e la data in testa. Le
+          versioni precedenti restano disponibili su richiesta.
+        </p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .legal {
+    max-width: 46rem;
+    display: grid;
+    gap: var(--space-4);
+  }
+  .legal__notice {
+    font-size: var(--text-label);
+    color: var(--ink-mute);
+    border: 1px dashed var(--line);
+    padding: var(--space-2) var(--space-3);
+    justify-self: start;
+  }
+</style>

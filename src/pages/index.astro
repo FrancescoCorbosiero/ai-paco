@@ -1,0 +1,413 @@
+---
+import Base from '../layouts/Base.astro';
+import ChatDemo from '../components/ChatDemo.astro';
+import SectionHead from '../components/SectionHead.astro';
+import PricingCards from '../components/PricingCards.astro';
+import CtaBand from '../components/CtaBand.astro';
+import WhatsAppCta from '../components/WhatsAppCta.astro';
+import { SITE_TITLE, SITE_DESCRIPTION, EARLY_ACCESS_LABEL, FOUNDERS_SEATS } from '../config';
+import { t } from '../i18n/ui';
+
+const steps = [
+  {
+    n: '01',
+    t: 'Racconta la tua attività',
+    d: 'Paco ti fa qualche domanda su WhatsApp: orari, servizi, qualche foto. Rispondi quando puoi, anche tra un cliente e l’altro. Il listino? Basta una foto di quello appeso in negozio.',
+  },
+  {
+    n: '02',
+    t: 'Paco crea il sito',
+    d: 'Ti manda l’anteprima in chat. Vuoi cambiare qualcosa? Diglielo a parole — «metti prima le foto», «quel verde è troppo acceso» — finché non ti piace. Poi pubblica lui.',
+  },
+  {
+    n: '03',
+    t: 'Aggiorna scrivendo',
+    d: '«Ad agosto chiudiamo due settimane.» «Pubblica l’offerta di settembre.» Dieci secondi in chat, ed è online. Niente pannelli, niente password: il sito non resta mai indietro.',
+  },
+];
+
+const features = [
+  {
+    t: 'Online in un paio di giorni',
+    d: 'Dal primo messaggio al sito pubblicato: a te serve mezz’ora in tutto, spalmata come vuoi.',
+  },
+  {
+    t: 'Aggiornamenti illimitati',
+    d: 'Ogni modifica è un messaggio. Nessun costo a intervento, nessuna agenzia da rincorrere.',
+  },
+  {
+    t: 'Offerte con la scadenza',
+    d: '«Valida fino a fine mese»: quando scade, Paco la toglie da solo. Mai più promozioni fantasma.',
+  },
+  {
+    t: 'Risposte a qualsiasi ora',
+    d: 'Ai clienti che scrivono risponde Paco, anche alle 23:40 — solo con le informazioni del tuo sito.',
+  },
+  {
+    t: 'Tu, quando conta',
+    d: 'Richieste particolari, lamentele, trattative: Paco ti passa la conversazione con un riepilogo ordinato.',
+  },
+  {
+    t: 'Il resoconto, senza grafici',
+    d: 'Una volta a settimana, in chat: visite, conversazioni gestite, richieste passate a te. Numeri semplici.',
+  },
+];
+
+const verticals = [
+  {
+    href: '/per-chi/ristoranti',
+    label: 'Ristoranti e pizzerie',
+    quote: '«Stasera niente fritti.» — Fatto: menù aggiornato e clienti avvisati.',
+  },
+  {
+    href: '/per-chi/parrucchieri',
+    label: 'Parrucchieri ed estetiste',
+    quote: '«La piega è 20 adesso.» — Corretto sul listino ✔️',
+  },
+  {
+    href: '/per-chi/artigiani',
+    label: 'Artigiani',
+    quote: 'Urgenza alle 21:50 → richiesta ordinata con zona e foto, non una chiamata persa.',
+  },
+  {
+    href: '/per-chi/professionisti',
+    label: 'Professionisti',
+    quote: 'Richieste già qualificate. I pareri, quelli, restano tuoi.',
+  },
+];
+---
+
+<Base title={SITE_TITLE} description={SITE_DESCRIPTION}>
+  <!-- ============ hero ============ -->
+  <section class="hero">
+    <div class="container hero__grid">
+      <div class="hero__copy">
+        <p class="badge">{EARLY_ACCESS_LABEL}</p>
+        <h1 class="display">Il sito della tua attività, creato e gestito su WhatsApp.</h1>
+        <p class="lede">
+          Paco lo fa con te in chat: tu gli scrivi le cose come le diresti a un collaboratore, lui
+          le mette online. E ai tuoi clienti risponde lui, con le informazioni sempre giuste.
+        </p>
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="/early-access">{t('cta.earlyAccess')}</a>
+          <WhatsAppCta fallbackHref="/come-funziona" fallbackLabel={t('cta.comeFunziona')} />
+        </div>
+        <p class="hero__note mono">
+          Niente pannelli · niente password · disdici quando vuoi
+        </p>
+      </div>
+      <div class="hero__demo">
+        <ChatDemo demo="hero" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ come funziona ============ -->
+  <section class="section" aria-labelledby="come-funziona-title">
+    <div class="container">
+      <SectionHead
+        eyebrow="Come funziona"
+        title="Tre passi. Nessuno davanti a un computer."
+        lede="Il sito lo fa Paco: a te resta il mestiere tuo."
+      />
+      <div class="steps">
+        {
+          steps.map((s) => (
+            <article class="steps__item">
+              <p class="steps__n mono">{s.n}</p>
+              <h3>{s.t}</h3>
+              <p class="muted">{s.d}</p>
+            </article>
+          ))
+        }
+      </div>
+      <p class="section__more">
+        <a href="/come-funziona">Guarda tutto il percorso, con le conversazioni vere →</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ risponde ai clienti ============ -->
+  <section class="section clients" aria-labelledby="clienti-title">
+    <div class="container clients__grid">
+      <div class="clients__demo">
+        <ChatDemo demo="artigiani" />
+      </div>
+      <div class="clients__copy stack">
+        <SectionHead
+          eyebrow="Il tuo assistente"
+          title="Ai tuoi clienti risponde Paco."
+          lede="«Siete aperti domani?» «Quanto costa?» «C’è posto stasera?» Le domande di ogni giorno trovano risposta subito, a qualsiasi ora — tu intervieni solo quando serve davvero."
+        />
+        <ul class="clients__rules">
+          <li><strong>Si presenta sempre come assistente.</strong> Nessuno crederà di parlare con te.</li>
+          <li>
+            <strong>Risponde solo con le informazioni del tuo sito.</strong> Se non sa una cosa, lo
+            dice — e la chiede a te. Non inventa, mai.
+          </li>
+          <li>
+            <strong>Ti passa la mano quando conta:</strong> richieste particolari, lamentele,
+            trattative arrivano a te con un riepilogo ordinato.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ funzionalità ============ -->
+  <section class="section" aria-labelledby="funzioni-title">
+    <div class="container">
+      <SectionHead
+        eyebrow="Cosa fa"
+        title="Un collaboratore, non un altro programma."
+        lede="Tutto quello che segue è compreso nel canone. Quello che ancora non c’è — prenotazioni con calendario, pagamenti — lo trovi scritto chiaro, al futuro, nelle FAQ."
+      />
+      <div class="features-grid">
+        {
+          features.map((f) => (
+            <article class="features-grid__item">
+              <h3>{f.t}</h3>
+              <p class="muted">{f.d}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ per chi ============ -->
+  <section class="section section--tight" aria-labelledby="per-chi-title">
+    <div class="container">
+      <SectionHead
+        eyebrow="Per chi"
+        title="Fatto per chi ha le mani occupate."
+      />
+      <div class="verticals">
+        {
+          verticals.map((v) => (
+            <a class="verticals__card" href={v.href}>
+              <h3>{v.label}</h3>
+              <p class="muted">{v.quote}</p>
+              <span class="mono verticals__arrow" aria-hidden="true">
+                →
+              </span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ prova sociale onesta ============ -->
+  <section class="section founders" aria-labelledby="fondatori-title">
+    <div class="container founders__inner">
+      <p class="badge badge--solid">{FOUNDERS_SEATS} posti fondatori</p>
+      <h2 class="display" id="fondatori-title">Qui andranno le storie dei fondatori.</h2>
+      <p class="lede">
+        Siamo in pre-lancio: recensioni inventate non ne pubblichiamo. Le prime storie vere le
+        scriveremo con i {FOUNDERS_SEATS} fondatori dell’early access — magari con la tua.
+      </p>
+      <a class="btn btn--ghost" href="/early-access">Prenota il tuo posto</a>
+    </div>
+  </section>
+
+  <!-- ============ prezzi teaser ============ -->
+  <section class="section" aria-labelledby="prezzi-title">
+    <div class="container">
+      <SectionHead
+        eyebrow="Prezzi di lancio"
+        title="Un canone chiaro. Nessun preventivo."
+        lede="Tutto incluso: sito, aggiornamenti illimitati, risposte ai clienti. IVA esclusa, disdici quando vuoi."
+      />
+      <PricingCards compact />
+      <p class="section__more">
+        <a href="/prezzi">Vedi cosa comprende ogni fascia →</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ manifesto ============ -->
+  <section class="section manifesto-teaser">
+    <div class="container manifesto-teaser__inner">
+      <blockquote>
+        <p class="display">
+          «I siti non muoiono di brutto design. Muoiono di abbandono.»
+        </p>
+      </blockquote>
+      <p><a href="/manifesto">Leggi il manifesto di Paco →</a></p>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>
+
+<style>
+  .hero {
+    border-bottom: 1px solid var(--line);
+    padding-block: var(--section);
+    overflow: hidden;
+  }
+  .hero__grid {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: var(--space-6);
+    align-items: center;
+  }
+  .hero__copy {
+    display: grid;
+    gap: var(--space-4);
+    justify-items: start;
+  }
+  .hero__actions {
+    display: flex;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+  }
+  .hero__note {
+    font-size: var(--text-label);
+    color: var(--ink-mute);
+    letter-spacing: 0.04em;
+  }
+  .hero__demo {
+    justify-self: end;
+  }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+  }
+  .steps__item {
+    border-top: 2px solid var(--accent);
+    padding-block-start: var(--space-3);
+    display: grid;
+    gap: var(--space-2);
+    align-content: start;
+  }
+  .steps__n {
+    color: var(--accent-text);
+    font-weight: 700;
+  }
+  .section__more {
+    margin-block-start: var(--space-5);
+    font-weight: 600;
+  }
+
+  .clients {
+    background: var(--surface);
+    border-block: 1px solid var(--line);
+  }
+  .clients__grid {
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    gap: var(--space-6);
+    align-items: center;
+  }
+  .clients__rules {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: var(--space-3);
+  }
+  .clients__rules li {
+    border-inline-start: 3px solid var(--accent);
+    padding-inline-start: var(--space-3);
+    color: var(--ink-dim);
+  }
+  .clients__rules strong {
+    color: var(--ink);
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-5) var(--space-5);
+  }
+  .features-grid__item h3 {
+    display: inline-block;
+    border-bottom: 2px solid var(--accent);
+    padding-block-end: var(--space-2);
+    margin-block-end: var(--space-2);
+  }
+
+  .verticals {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+  }
+  .verticals__card {
+    position: relative;
+    display: grid;
+    gap: var(--space-2);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    padding: var(--space-4);
+    text-decoration: none;
+    color: var(--ink);
+    transition:
+      transform var(--t-fast) var(--ease),
+      box-shadow var(--t-fast) var(--ease),
+      border-color var(--t-fast) var(--ease);
+  }
+  .verticals__card:hover {
+    border-color: var(--accent);
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow);
+    color: var(--ink);
+  }
+  .verticals__arrow {
+    position: absolute;
+    top: var(--space-4);
+    inset-inline-end: var(--space-4);
+    color: var(--accent-text);
+  }
+
+  .founders {
+    background: var(--surface);
+    border-block: 1px solid var(--line);
+  }
+  .founders__inner {
+    display: grid;
+    justify-items: center;
+    text-align: center;
+    gap: var(--space-4);
+    max-width: 46rem;
+  }
+  .founders__inner .lede {
+    margin-inline: auto;
+  }
+
+  .manifesto-teaser__inner {
+    max-width: 50rem;
+    display: grid;
+    gap: var(--space-4);
+  }
+  .manifesto-teaser blockquote {
+    border-inline-start: 6px solid var(--accent);
+    padding-inline-start: var(--space-4);
+  }
+  .manifesto-teaser blockquote p {
+    font-size: clamp(1.4rem, 1rem + 2vw, 2.2rem);
+  }
+
+  @media (max-width: 56rem) {
+    .hero__grid,
+    .clients__grid {
+      grid-template-columns: 1fr;
+    }
+    .hero__demo {
+      justify-self: center;
+    }
+    .clients__demo {
+      order: 2;
+      justify-self: center;
+    }
+    .steps,
+    .features-grid {
+      grid-template-columns: 1fr;
+    }
+    .verticals {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

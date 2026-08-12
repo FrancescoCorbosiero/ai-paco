@@ -1,0 +1,93 @@
+---
+import Base from '../layouts/Base.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { ALPACODE_URL } from '../config';
+---
+
+<Base
+  title="Manifesto"
+  description="I siti delle piccole attività non muoiono di brutto design: muoiono di abbandono. Perché crediamo che la risposta sia una chat — il manifesto di Paco."
+>
+  <article class="section">
+    <div class="container manifesto">
+      <p class="eyebrow">Il manifesto di Paco</p>
+      <h1 class="display">
+        I siti non muoiono di brutto design. Muoiono di abbandono.
+      </h1>
+
+      <div class="prose manifesto__body">
+        <p>
+          Nascono quasi sempre bene: un'agenzia, un conoscente bravo col computer, un fine
+          settimana di buona volontà su uno di quei programmi che promettono «il tuo sito in dieci
+          minuti».
+        </p>
+        <p>Poi la bottega riprende a girare. Il servizio, i fornitori, la cassa, le ferie da incastrare. E il sito resta lì.</p>
+        <p>
+          Gli orari cambiano; il sito no. Il menù cambia; il sito no. Ad agosto si chiude due
+          settimane; il sito non lo sa. Passa un anno e quella pagina con scritto «novità di
+          Natale» è ancora online, a giugno, a raccontare a tutti che lì dentro non ci passa più
+          nessuno.
+        </p>
+        <p>
+          Non è colpa di nessuno. È che ogni strumento, prima di darti qualcosa, ti chiede
+          qualcosa: impara il pannello, ricorda la password, trova un momento per sederti al
+          computer. «È facilissimo», dicono. Facilissimo per chi lo ha costruito. Tu intanto hai le
+          mani nel colore, o nell'impasto, o sotto un lavello — e il momento per sederti al
+          computer non arriva mai.
+        </p>
+        <p>
+          Così il sito muore. E un sito morto è peggio di nessun sito: promette una cosa e ne
+          mantiene un'altra. Un cliente che trova gli orari sbagliati una volta non controlla una
+          seconda.
+        </p>
+        <p>
+          Intanto, ogni giorno, rispondi alle stesse domande. Siete aperti? Quanto costa? Fate
+          consegne? C'è posto stasera? Le sai a memoria. Le scrivi su WhatsApp tra un cliente e
+          l'altro, quando puoi, spesso la sera, qualche volta mai. Non è il tuo lavoro: è il lavoro
+          di un collaboratore che non hai.
+        </p>
+        <p>
+          Noi crediamo in una cosa semplice: <strong>è lo strumento che si deve adattare a te, non
+          tu allo strumento.</strong> E tu uno strumento lo sai già usare, alla perfezione, cento
+          volte al giorno: scrivere un messaggio.
+        </p>
+        <p>
+          Per questo Paco non è un altro pannello, un altro corso da fare, un altro accesso da
+          ricordare. Paco è una chat. Gli dici le cose, e le cose succedono. Il sito nasce
+          parlando. Si aggiorna parlando. E ai tuoi clienti risponde con le tue informazioni —
+          quelle giuste, quelle di oggi — anche quando tu non puoi, perché non puoi quasi mai.
+        </p>
+        <p>
+          Il sito smette di essere un lavoro in più. Torna a essere quello che doveva essere dal
+          primo giorno: <strong>la tua bottega, aperta anche quando è chiusa.</strong>
+        </p>
+        <p>Il resto sono dettagli tecnici. E i dettagli tecnici sono affar nostro.</p>
+        <p class="manifesto__sign display">Dillo a Paco.</p>
+        <p class="manifesto__byline">— <a href={ALPACODE_URL} rel="noopener">Alpacode</a></p>
+      </div>
+    </div>
+  </article>
+
+  <CtaBand />
+</Base>
+
+<style>
+  .manifesto {
+    max-width: 46rem;
+    display: grid;
+    gap: var(--space-4);
+  }
+  .manifesto h1 {
+    font-size: clamp(2rem, 1.2rem + 3.4vw, 3.4rem);
+  }
+  .manifesto__body p {
+    font-size: 1.125rem;
+  }
+  .manifesto__sign {
+    font-size: 2rem;
+    margin-block-start: 1.5em;
+  }
+  .manifesto__byline {
+    color: var(--ink-mute);
+  }
+</style>
