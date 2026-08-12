@@ -79,6 +79,48 @@ Variabili d'ambiente (vedi `.env.example`):
 - Endpoint waitlist testato: honeypot, validazione, rate limit (5/ora per
   IP), protezione cross-site (403), redirect no-JS.
 
+## Docker
+
+Due configurazioni, nessuna pipeline CI/CD (per ora si builda dove serve).
+
+**Locale (hot reload, senza installare Node sul host):**
+
+```bash
+docker compose -f compose.dev.yaml up
+# → http://localhost:4321 — il sorgente è montato, astro dev ricarica da solo
+```
+
+**Produzione su VPS:**
+
+```bash
+cp .env.example .env    # compila SITE, PUBLIC_WHATSAPP_NUMBER, chiavi Resend
+docker compose up -d --build
+# → il sito ascolta su 127.0.0.1:4321 (WEB_PORT), dietro il tuo reverse proxy
+```
+
+Distinzione importante, cablata nel `Dockerfile`:
+
+| Tipo | Variabili | Quando si applicano |
+|---|---|---|
+| **Build arg** | `SITE`, `PUBLIC_WHATSAPP_NUMBER` | finiscono nell'HTML statico (canonical, sitemap, link wa.me): cambiarle richiede `docker compose up -d --build` |
+| **Runtime env** | `RESEND_API_KEY`, `WAITLIST_TO`, `WAITLIST_FROM` | lette da `process.env` a ogni richiesta: si cambiano in `.env` + `docker compose up -d`, senza rebuild |
+
+Il container è multi-stage (build → runtime con sole dipendenze di
+produzione), gira da utente non privilegiato, ha un `HEALTHCHECK` su `/`
+e log con rotazione. Se sul VPS non c'è già un reverse proxy con TLS,
+in `compose.yaml` è pronto (commentato) un servizio **Caddy** con
+certificati Let's Encrypt automatici: decommentalo, imposta `SITE_HOST`
+in `.env`, commenta la riga `ports` di `web` e apri 80/443. La config è
+in `deploy/Caddyfile`.
+
+Verifica rapida dopo il deploy:
+
+```bash
+curl -I https://<dominio>/            # 200
+curl -s https://<dominio>/robots.txt  # sitemap col dominio giusto
+docker compose logs -f web            # [waitlist] … quando arriva un'iscrizione
+```
+
 ## Deploy su Vercel
 
 1. Importa il repo su Vercel: il framework viene riconosciuto (Astro);

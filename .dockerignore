@@ -1,0 +1,22 @@
+# dipendenze e output (si ricreano dentro l'immagine)
+node_modules
+dist
+.astro
+.vercel
+
+# segreti: MAI nel contesto di build
+.env
+.env.*
+!.env.example
+
+# non servono all'immagine
+.git
+.gitignore
+docs
+README.md
+Dockerfile
+compose.yaml
+compose.dev.yaml
+deploy
+npm-debug.log*
+.DS_Store

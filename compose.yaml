@@ -1,0 +1,55 @@
+# ---------------------------------------------------------------------------
+# Produzione su VPS.
+#
+#   cp .env.example .env      # compila SITE, numero WhatsApp, chiavi Resend
+#   docker compose up -d --build
+#
+# Il sito ascolta su 127.0.0.1:4321: davanti serve un reverse proxy con TLS.
+# Se sul VPS non ne hai già uno, decommenta il servizio `caddy` qui sotto
+# (config in deploy/Caddyfile) e commenta la riga `ports` di `web`.
+# ---------------------------------------------------------------------------
+
+services:
+  web:
+    build:
+      context: .
+      args:
+        # variabili di BUILD: finiscono nell'HTML statico (canonical,
+        # sitemap, link wa.me). Cambiarle richiede `--build`.
+        SITE: ${SITE:-https://paco.alpacode.it}
+        PUBLIC_WHATSAPP_NUMBER: ${PUBLIC_WHATSAPP_NUMBER:-}
+    image: paco-launch:latest
+    restart: unless-stopped
+    # solo loopback: espone al reverse proxy della macchina, non a internet
+    ports:
+      - '127.0.0.1:${WEB_PORT:-4321}:4321'
+    environment:
+      # segreti a RUNTIME: modificabili senza rifare la build
+      RESEND_API_KEY: ${RESEND_API_KEY:-}
+      WAITLIST_TO: ${WAITLIST_TO:-founders@alpacode.it}
+      WAITLIST_FROM: ${WAITLIST_FROM:-Paco <onboarding@resend.dev>}
+    logging:
+      driver: json-file
+      options:
+        max-size: '10m'
+        max-file: '3'
+
+  # ---- reverse proxy con TLS automatico (opzionale) -----------------------
+  # caddy:
+  #   image: caddy:2-alpine
+  #   restart: unless-stopped
+  #   ports:
+  #     - '80:80'
+  #     - '443:443'
+  #   environment:
+  #     SITE_HOST: ${SITE_HOST:-paco.alpacode.it}
+  #   volumes:
+  #     - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+  #     - caddy-data:/data
+  #     - caddy-config:/config
+  #   depends_on:
+  #     - web
+
+# volumes:
+#   caddy-data:
+#   caddy-config:

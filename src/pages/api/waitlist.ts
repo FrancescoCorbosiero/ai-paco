@@ -62,13 +62,15 @@ function validate(form: FormData): { ok: true; data: Submission } | { ok: false;
 }
 
 async function notify(data: Submission): Promise<void> {
-  const apiKey = import.meta.env.RESEND_API_KEY;
+  // process.env, non import.meta.env: i segreti devono essere leggibili a
+  // RUNTIME (container Docker, VPS), senza dover rifare la build.
+  const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
     console.log('[waitlist] nuova iscrizione (Resend non configurato):', data);
     return;
   }
-  const to = import.meta.env.WAITLIST_TO ?? 'founders@alpacode.it';
-  const from = import.meta.env.WAITLIST_FROM ?? 'Paco <onboarding@resend.dev>';
+  const to = process.env.WAITLIST_TO ?? 'founders@alpacode.it';
+  const from = process.env.WAITLIST_FROM ?? 'Paco <onboarding@resend.dev>';
   const response = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: {
