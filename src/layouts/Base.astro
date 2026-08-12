@@ -105,5 +105,57 @@ const allSchema = [...baseSchema, ...extraSchema];
       <slot />
     </main>
     <Footer />
+
+    <script>
+      // Sistema di reveal allo scroll + contatori animati.
+      // Progressive enhancement: senza JS o con prefers-reduced-motion
+      // tutto è semplicemente visibile e statico.
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (!reduce && 'IntersectionObserver' in window) {
+        const els = Array.from(document.querySelectorAll<HTMLElement>('[data-reveal]'));
+        for (const el of els) {
+          const group = el.closest<HTMLElement>('[data-reveal-group]');
+          if (group) {
+            const siblings = Array.from(group.querySelectorAll<HTMLElement>('[data-reveal]'));
+            el.style.setProperty('--reveal-delay', `${Math.min(siblings.indexOf(el), 8) * 90}ms`);
+          }
+          el.classList.add('reveal-armed');
+        }
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('reveal-in');
+                io.unobserve(entry.target);
+              }
+            }
+          },
+          { threshold: 0.15, rootMargin: '0px 0px -8% 0px' },
+        );
+        els.forEach((el) => io.observe(el));
+
+        const counters = document.querySelectorAll<HTMLElement>('[data-count-to]');
+        const cio = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (!entry.isIntersecting) continue;
+              cio.unobserve(entry.target);
+              const el = entry.target as HTMLElement;
+              const to = Number(el.dataset.countTo ?? '0');
+              const started = performance.now();
+              const tick = (now: number) => {
+                const p = Math.min((now - started) / 1100, 1);
+                el.textContent = String(Math.round(to * (1 - Math.pow(1 - p, 3))));
+                if (p < 1) requestAnimationFrame(tick);
+              };
+              requestAnimationFrame(tick);
+            }
+          },
+          { threshold: 0.6 },
+        );
+        counters.forEach((el) => cio.observe(el));
+      }
+    </script>
   </body>
 </html>

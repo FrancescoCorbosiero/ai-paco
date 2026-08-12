@@ -121,6 +121,29 @@ Chat cliente ↔ Paco.
 
 ---
 
+## DEMO-INTERATTIVA — «Prova tu» (home)
+
+Unica demo **cliccabile** del sito: l'utente tocca un comando, la chat lo
+invia a Paco e il mini-sito della pizzeria Da Salvo accanto si aggiorna
+con un'evidenziazione animata. Implementata in
+`src/components/CommandDemo.astro`.
+
+| Comando (chip) | Messaggio utente | Risposta di Paco | Effetto sul mini-sito |
+|---|---|---|---|
+| Stasera niente fritti | «stasera niente fritti, s'è rotta la friggitrice» | «Fatto: fritti fuori dal menù per stasera e avviso pubblicato. Se un cliente li chiede, lo avviso io 👍» | sezione Fritti attenuata e barrata + avviso in pagina |
+| Pubblica la serata a 15 € | «pubblica la serata pizza e sfizi a 15 euro, venerdì» | «Pubblicata in home: “Venerdì 21 — Serata pizza e sfizi, 15 €”. La tolgo da sola sabato mattina.» | banner offerta visibile |
+| Ad agosto chiusi due settimane | «ad agosto chiudiamo dal 10 al 24» | «Segnato: orari aggiornati e avviso ferie online. A chi scrive in quei giorni dico quando riaprite ⛱» | riga ferie negli orari + avviso |
+| ↺ Rimetti tutto com'era | «rimetti tutto com'era» | «Fatto, tutto com'era ✔️» | reset di tutti gli stati |
+
+Regole aggiuntive:
+- comandi cumulabili (fritti + offerta + ferie insieme sono uno stato valido);
+- con `prefers-reduced-motion` l'interazione resta, spariscono attese e
+  animazioni (applicazione istantanea);
+- un `role="status"` invisibile annuncia l'esito a chi usa screen reader;
+- l'etichetta di sezione dichiara «demo simulata» come per tutte le altre.
+
+---
+
 ## Manutenzione
 
 - Ogni modifica a questi testi va riportata in `src/data/demos.ts` (e

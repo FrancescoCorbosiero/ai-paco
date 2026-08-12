@@ -264,6 +264,38 @@ strong {
   margin-block: 2em;
 }
 
+/* ============ animazioni allo scroll ============ */
+/* Gli elementi [data-reveal] sono visibili di default (no-JS, screen
+   reader, reduced-motion). Il JS li "arma" prima del primo paint e li
+   rivela entrando nel viewport, con stagger dentro [data-reveal-group]. */
+.reveal-armed {
+  opacity: 0;
+  transform: translateY(18px);
+}
+.reveal-armed.reveal-in {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 0.55s var(--ease),
+    transform 0.55s var(--ease);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+/* pulsazione usata dalle demo interattive quando un blocco cambia */
+@keyframes paco-flash {
+  0% {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+  100% {
+    outline: 2px solid transparent;
+    outline-offset: 10px;
+  }
+}
+.flash {
+  animation: paco-flash 0.9s var(--ease) 1;
+}
+
 /* ============ accessibilità ============ */
 .sr-only {
   position: absolute;

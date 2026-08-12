@@ -1,0 +1,508 @@
+---
+import SectionHead from './SectionHead.astro';
+
+/**
+ * Demo interattiva «Prova tu»: l'utente tocca un comando, la chat lo
+ * invia a Paco e il mini-sito accanto si aggiorna con un'animazione.
+ * Tutto scriptato e dichiarato come simulazione
+ * (fonte: docs/product/05-demo-scripts.md, scena DEMO-INTERATTIVA).
+ * Senza JS il mini-sito resta visibile nello stato di partenza.
+ */
+---
+
+<section class="cdemo section" aria-labelledby="cdemo-title">
+  <div class="container">
+    <SectionHead
+      eyebrow="Prova tu · demo simulata"
+      title="Un messaggio. Guarda cosa succede."
+      lede="Questa è la sensazione di avere Paco: tocca un comando e il sito si aggiorna da solo. Qui è una simulazione — con il tuo sito sarà WhatsApp vero."
+    />
+
+    <div class="cdemo__grid" data-cdemo>
+      <!-- ===== chat ===== -->
+      <div class="cdemo__chat">
+        <div class="cdemo__chatbar">
+          <span class="cdemo__avatar" aria-hidden="true">P</span>
+          <span class="cdemo__who"><strong>Paco</strong><small>assistente della pizzeria Da Salvo</small></span>
+        </div>
+        <div class="cdemo__log" data-log aria-hidden="true">
+          <div class="cmsg cmsg--in">Prova tu: tocca un comando qui sotto 👇</div>
+        </div>
+        <div class="cdemo__typing" data-ctyping hidden aria-hidden="true">
+          <span></span><span></span><span></span>
+        </div>
+        <div class="cdemo__chips" role="group" aria-label="Comandi di esempio da inviare a Paco">
+          <button class="cdemo__chip" type="button" data-cmd="fritti">Stasera niente fritti</button>
+          <button class="cdemo__chip" type="button" data-cmd="offerta">Pubblica la serata a 15 €</button>
+          <button class="cdemo__chip" type="button" data-cmd="ferie">Ad agosto chiusi due settimane</button>
+          <button class="cdemo__chip cdemo__chip--reset" type="button" data-cmd="reset">↺ Rimetti tutto com’era</button>
+        </div>
+        <p class="sr-only" role="status" data-cstatus></p>
+        <noscript>
+          <p class="cdemo__noscript mono">Con JavaScript attivo questa demo è interattiva.</p>
+        </noscript>
+      </div>
+
+      <!-- ===== mini-sito ===== -->
+      <div class="cdemo__browser" data-site>
+        <div class="cdemo__urlbar" aria-hidden="true">
+          <span class="cdemo__dots"><i></i><i></i><i></i></span>
+          <span class="mono cdemo__url">dasalvo.paco.it</span>
+        </div>
+        <div class="cdemo__page" aria-label="Anteprima del sito della pizzeria (esempio)">
+          <header class="site-head">
+            <span class="site-logo">DA SALVO</span>
+            <span class="site-nav mono" aria-hidden="true">Menù · Orari · Contatti</span>
+          </header>
+
+          <p class="site-alert site-alert--fritti mono" data-flash-target="fritti">
+            ⚠︎ Stasera i fritti non sono disponibili
+          </p>
+          <p class="site-offer mono" data-flash-target="offerta">
+            ★ Venerdì 21 · Serata pizza e sfizi · menù 15 €
+          </p>
+          <p class="site-alert site-alert--ferie mono" data-flash-target="ferie">
+            ⛱ Chiusi per ferie dal 10 al 24 agosto
+          </p>
+
+          <div class="site-cols">
+            <section class="site-menu">
+              <h3 class="mono">MENÙ</h3>
+              <ul>
+                <li><span>Margherita</span><span class="mono">6,50</span></li>
+                <li><span>Diavola</span><span class="mono">8,00</span></li>
+                <li><span>Bufalina</span><span class="mono">9,00</span></li>
+              </ul>
+              <div class="site-fritti" data-flash-target="fritti-menu">
+                <h4 class="mono">FRITTI <em class="site-fritti__tag mono">stasera no</em></h4>
+                <ul>
+                  <li><span>Crocchè</span><span class="mono">3,00</span></li>
+                  <li><span>Frittatina</span><span class="mono">3,50</span></li>
+                </ul>
+              </div>
+            </section>
+
+            <section class="site-hours" data-flash-target="orari">
+              <h3 class="mono">ORARI</h3>
+              <ul>
+                <li><span>Mar–Dom</span><span class="mono">19:00–24:00</span></li>
+                <li><span>Lunedì</span><span class="mono">chiuso</span></li>
+                <li class="site-hours__ferie"><span>10–24 ago</span><span class="mono">ferie</span></li>
+              </ul>
+              <span class="site-wa" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.7 14.9L2 22l5.3-1.3A10 10 0 1 0 12 2Z" /></svg>
+                Scrivici
+              </span>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cdemo {
+    background: var(--surface);
+    border-block: 1px solid var(--line);
+  }
+  .cdemo__grid {
+    display: grid;
+    grid-template-columns: 1fr 1.25fr;
+    gap: var(--space-5);
+    align-items: stretch;
+  }
+
+  /* ---- chat ---- */
+  .cdemo__chat {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid var(--line);
+    background: var(--bg);
+    box-shadow: var(--shadow);
+  }
+  .cdemo__chatbar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 0.7rem 0.9rem;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--line);
+  }
+  .cdemo__avatar {
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    background: var(--accent);
+    color: var(--on-accent);
+    font-family: var(--font-display);
+  }
+  .cdemo__who {
+    display: grid;
+    line-height: 1.25;
+  }
+  .cdemo__who small {
+    color: var(--ink-dim);
+    font-size: 0.75rem;
+  }
+  .cdemo__log {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    padding: 0.9rem;
+    min-height: 13rem;
+    overflow-y: auto;
+  }
+  .cmsg {
+    max-width: 88%;
+    padding: 0.5rem 0.7rem;
+    font-size: 0.9rem;
+    line-height: 1.45;
+    animation: cmsg-in 0.25s var(--ease);
+  }
+  .cmsg--in {
+    align-self: flex-start;
+    background: var(--bubble-in);
+    border: 1px solid var(--line);
+  }
+  .cmsg--out {
+    align-self: flex-end;
+    background: var(--bubble-out);
+  }
+  @keyframes cmsg-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+  }
+  .cdemo__typing {
+    display: flex;
+    gap: 4px;
+    padding: 0 0.9rem 0.6rem;
+  }
+  .cdemo__typing[hidden] {
+    display: none;
+  }
+  .cdemo__typing span {
+    width: 6px;
+    height: 6px;
+    background: var(--ink-mute);
+    animation: paco-typing 1s infinite var(--ease);
+  }
+  .cdemo__typing span:nth-child(2) {
+    animation-delay: 0.15s;
+  }
+  .cdemo__typing span:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+  @keyframes paco-typing {
+    0%,
+    60%,
+    100% {
+      opacity: 0.35;
+    }
+    30% {
+      opacity: 1;
+      transform: translateY(-3px);
+    }
+  }
+  .cdemo__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    padding: 0.9rem;
+    border-top: 1px solid var(--line);
+  }
+  .cdemo__chip {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    color: var(--ink);
+    font-weight: 600;
+    font-size: 0.85rem;
+    padding: 0.5em 0.9em;
+    cursor: pointer;
+    transition:
+      border-color var(--t-fast) var(--ease),
+      transform var(--t-fast) var(--ease),
+      box-shadow var(--t-fast) var(--ease);
+  }
+  .cdemo__chip:hover:not(:disabled) {
+    border-color: var(--accent);
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0 var(--line);
+  }
+  .cdemo__chip:disabled {
+    opacity: 0.5;
+    cursor: wait;
+  }
+  .cdemo__chip--reset {
+    color: var(--ink-dim);
+  }
+  .cdemo__noscript {
+    padding: 0 0.9rem 0.9rem;
+    font-size: var(--text-label);
+    color: var(--ink-mute);
+  }
+
+  /* ---- mini-sito ---- */
+  .cdemo__browser {
+    border: 2px solid var(--line);
+    background: var(--bg);
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+  }
+  .cdemo__urlbar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: 0.55rem 0.9rem;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--line);
+  }
+  .cdemo__dots {
+    display: inline-flex;
+    gap: 5px;
+  }
+  .cdemo__dots i {
+    width: 8px;
+    height: 8px;
+    background: var(--line);
+  }
+  .cdemo__url {
+    font-size: var(--text-label);
+    color: var(--ink-dim);
+    background: var(--bg);
+    border: 1px solid var(--line);
+    padding: 0.2em 0.8em;
+  }
+  .cdemo__page {
+    padding: var(--space-4);
+    display: grid;
+    gap: var(--space-3);
+    align-content: start;
+    flex: 1;
+  }
+  .site-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-3);
+    border-bottom: 2px solid var(--ink);
+    padding-block-end: var(--space-2);
+  }
+  .site-logo {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+  }
+  .site-nav {
+    font-size: var(--text-label);
+    color: var(--ink-mute);
+  }
+
+  .site-alert,
+  .site-offer {
+    display: none;
+    font-size: var(--text-label);
+    padding: 0.45em 0.8em;
+    border: 1px solid currentColor;
+  }
+  .site-alert--fritti {
+    color: #e0a63f;
+  }
+  .site-alert--ferie {
+    color: var(--ink-dim);
+  }
+  .site-offer {
+    color: var(--accent-text);
+    border-color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 10%, transparent);
+  }
+  [data-site].has-fritti .site-alert--fritti,
+  [data-site].has-offerta .site-offer,
+  [data-site].has-ferie .site-alert--ferie {
+    display: block;
+  }
+
+  .site-cols {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: var(--space-4);
+  }
+  .site-menu h3,
+  .site-hours h3,
+  .site-fritti h4 {
+    font-size: var(--text-label);
+    letter-spacing: 0.08em;
+    color: var(--ink-mute);
+    margin-block-end: var(--space-2);
+    font-weight: 700;
+  }
+  .site-menu ul,
+  .site-hours ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 0.4rem;
+    font-size: 0.9rem;
+  }
+  .site-menu li,
+  .site-hours li {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-3);
+    border-bottom: 1px dashed var(--line);
+    padding-block-end: 0.3rem;
+  }
+  .site-fritti {
+    margin-block-start: var(--space-3);
+    transition: opacity var(--t-med) var(--ease);
+  }
+  .site-fritti__tag {
+    display: none;
+    font-style: normal;
+    color: #e0a63f;
+    margin-inline-start: 0.6em;
+  }
+  [data-site].has-fritti .site-fritti {
+    opacity: 0.45;
+  }
+  [data-site].has-fritti .site-fritti li span:first-child {
+    text-decoration: line-through;
+  }
+  [data-site].has-fritti .site-fritti__tag {
+    display: inline;
+  }
+  .site-hours li.site-hours__ferie {
+    display: none;
+    color: var(--accent-text);
+    font-weight: 700;
+  }
+  [data-site].has-ferie .site-hours li.site-hours__ferie {
+    display: flex;
+  }
+  .site-wa {
+    margin-block-start: var(--space-3);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    background: var(--accent);
+    color: var(--on-accent);
+    font-weight: 800;
+    font-size: 0.8rem;
+    padding: 0.45em 0.9em;
+  }
+
+  @media (max-width: 56rem) {
+    .cdemo__grid {
+      grid-template-columns: 1fr;
+    }
+    .site-cols {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  const REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  interface Scene {
+    user: string;
+    paco: string;
+    add?: string;
+    remove?: string[];
+    flash: string[];
+    status: string;
+  }
+
+  const SCENES: Record<string, Scene> = {
+    fritti: {
+      user: 'stasera niente fritti, s’è rotta la friggitrice',
+      paco: 'Fatto: fritti fuori dal menù per stasera e avviso pubblicato. Se un cliente li chiede, lo avviso io 👍',
+      add: 'has-fritti',
+      flash: ['fritti', 'fritti-menu'],
+      status: 'Sito aggiornato: fritti non disponibili stasera.',
+    },
+    offerta: {
+      user: 'pubblica la serata pizza e sfizi a 15 euro, venerdì',
+      paco: 'Pubblicata in home: «Venerdì 21 — Serata pizza e sfizi, 15 €». La tolgo da sola sabato mattina.',
+      add: 'has-offerta',
+      flash: ['offerta'],
+      status: 'Sito aggiornato: offerta del venerdì pubblicata.',
+    },
+    ferie: {
+      user: 'ad agosto chiudiamo dal 10 al 24',
+      paco: 'Segnato: orari aggiornati e avviso ferie online. A chi scrive in quei giorni dico quando riaprite ⛱',
+      add: 'has-ferie',
+      flash: ['ferie', 'orari'],
+      status: 'Sito aggiornato: ferie di agosto pubblicate.',
+    },
+    reset: {
+      user: 'rimetti tutto com’era',
+      paco: 'Fatto, tutto com’era ✔️',
+      remove: ['has-fritti', 'has-offerta', 'has-ferie'],
+      flash: [],
+      status: 'Sito riportato allo stato iniziale.',
+    },
+  };
+
+  const root = document.querySelector<HTMLElement>('[data-cdemo]');
+  if (root) {
+    const log = root.querySelector<HTMLElement>('[data-log]');
+    const typing = root.querySelector<HTMLElement>('[data-ctyping]');
+    const site = root.querySelector<HTMLElement>('[data-site]');
+    const status = root.querySelector<HTMLElement>('[data-cstatus]');
+    const chips = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-cmd]'));
+
+    const sleep = (ms: number) => new Promise((r) => setTimeout(r, REDUCE ? 0 : ms));
+
+    const bubble = (text: string, dir: 'in' | 'out') => {
+      if (!log) return;
+      const el = document.createElement('div');
+      el.className = `cmsg cmsg--${dir}`;
+      el.textContent = text;
+      log.appendChild(el);
+      while (log.children.length > 7) log.removeChild(log.children[0] as Node);
+      log.scrollTop = log.scrollHeight;
+    };
+
+    let busy = false;
+    const run = async (id: string) => {
+      const scene = SCENES[id];
+      if (busy || !scene || !site || !typing) return;
+      busy = true;
+      chips.forEach((c) => (c.disabled = true));
+
+      bubble(scene.user, 'out');
+      await sleep(450);
+      typing.hidden = false;
+      await sleep(850);
+      typing.hidden = true;
+      bubble(scene.paco, 'in');
+
+      if (scene.add) site.classList.add(scene.add);
+      for (const cls of scene.remove ?? []) site.classList.remove(cls);
+      if (!REDUCE) {
+        for (const key of scene.flash) {
+          const target = site.querySelector<HTMLElement>(`[data-flash-target="${key}"]`);
+          if (target) {
+            target.classList.remove('flash');
+            void target.offsetWidth;
+            target.classList.add('flash');
+          }
+        }
+      }
+      if (status) status.textContent = scene.status;
+
+      await sleep(350);
+      chips.forEach((c) => (c.disabled = false));
+      busy = false;
+    };
+
+    chips.forEach((chip) => {
+      chip.addEventListener('click', () => void run(chip.dataset.cmd ?? ''));
+    });
+  }
+</script>

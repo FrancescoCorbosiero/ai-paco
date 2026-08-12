@@ -133,13 +133,30 @@ Scala tipografica (clamp fluidi, implementati nei token):
 
 ## Movimento
 
-- Durate 160–240ms, easing `cubic-bezier(0.2, 0.8, 0.2, 1)`, solo
-  `opacity` e `transform` (translate ≤ 12px). Niente parallax, niente
-  elementi che inseguono il cursore.
-- Le demo chat sono l'unica animazione narrativa del sito (specifiche in
-  [`05-demo-scripts.md`](../product/05-demo-scripts.md)).
-- `prefers-reduced-motion: reduce` → tutto statico, demo interamente
-  visibili, nessuna transizione oltre i 10ms. Non negoziabile.
+Tre livelli, in ordine di importanza:
+
+1. **Micro-interazioni** (hover, focus, press): 160–240ms, easing
+   `cubic-bezier(0.2, 0.8, 0.2, 1)`, solo `opacity` e `transform`
+   (translate ≤ 12px). Ombra dura che "si stacca" al passaggio.
+2. **Narrazione allo scroll**: reveal con `IntersectionObserver`
+   (translateY 18px → 0, 550ms, stagger 90ms dentro i gruppi), parallax
+   **solo decorativo** con CSS scroll-driven animations
+   (`animation-timeline: scroll()/view()` dentro `@supports`) sui fumetti
+   di sfondo della hero e sull'interno dei mockup showcase; marquee dei
+   comandi in loop lento (36s), in pausa su hover. Il contenuto non
+   dipende mai dall'animazione: senza JS o supporto CSS è tutto visibile.
+3. **Demo narrative e interattive**: le chat scriptate e la demo
+   «Prova tu» (specifiche in
+   [`05-demo-scripts.md`](../product/05-demo-scripts.md)); l'evidenza di
+   un blocco che cambia è una pulsazione di outline accento (900ms, una
+   volta).
+
+Divieti: elementi che inseguono il cursore, parallax sul testo, scroll
+hijacking, autoplay con suono, contatori su numeri non veri.
+
+`prefers-reduced-motion: reduce` → tutto statico: demo interamente
+visibili, reveal disattivati, marquee fermo, parallax spento,
+interazioni con applicazione istantanea. Non negoziabile.
 
 ## Iconografia e illustrazione
 

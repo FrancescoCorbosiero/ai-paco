@@ -1,0 +1,282 @@
+---
+import SectionHead from './SectionHead.astro';
+
+/**
+ * Vetrina di mini-siti d'esempio, uno per mestiere: mockup costruiti in
+ * HTML/CSS (niente immagini finte, niente clienti finti) sui template di
+ * settore previsti dall'MVP. Nomi e attività di fantasia, dichiarato.
+ * Parallax interno via CSS scroll-driven animations dove supportate.
+ */
+const shots = [
+  {
+    id: 'pizzeria',
+    url: 'dasalvo.paco.it',
+    href: '/per-chi/ristoranti',
+    label: 'Ristoranti e pizzerie',
+    theme: { bg: '#180f08', ink: '#f4e8d6', accent: '#e8a34b', line: '#3a2c1c' },
+    logo: 'Da Salvo',
+    h1: 'La pizza, dal 2003.',
+    rows: [
+      ['Margherita', '6,50'],
+      ['Diavola', '8,00'],
+      ['Bufalina', '9,00'],
+    ],
+    rowsTitle: 'MENÙ',
+    note: '★ Venerdì: serata pizza e sfizi 15 €',
+  },
+  {
+    id: 'salone',
+    url: 'luciahairstyle.paco.it',
+    href: '/per-chi/parrucchieri',
+    label: 'Parrucchieri ed estetiste',
+    theme: { bg: '#faf5f1', ink: '#33232a', accent: '#b8577e', line: '#e6d5d9' },
+    logo: 'Lucia Hair Style',
+    h1: 'Il giovedì fino alle 21.',
+    rows: [
+      ['Taglio donna', '25'],
+      ['Piega', '20'],
+      ['Colore', 'da 45'],
+    ],
+    rowsTitle: 'LISTINO',
+    note: '✂ Martedì–sabato 9:00–18:00',
+  },
+  {
+    id: 'idraulico',
+    url: 'idraulicaferri.paco.it',
+    href: '/per-chi/artigiani',
+    label: 'Artigiani',
+    theme: { bg: '#eef2f6', ink: '#152238', accent: '#1560d4', line: '#cdd9e6' },
+    logo: 'Idraulica Ferri',
+    h1: 'Urgenze a Modena, si risponde.',
+    rows: [
+      ['Perdite e scarichi', '✓'],
+      ['Caldaie', '✓'],
+      ['Bagni chiavi in mano', '✓'],
+    ],
+    rowsTitle: 'INTERVENTI',
+    note: '🔧 Zona: Modena e provincia',
+  },
+  {
+    id: 'studio',
+    url: 'studiocosta.paco.it',
+    href: '/per-chi/professionisti',
+    label: 'Professionisti e studi',
+    theme: { bg: '#ffffff', ink: '#1c2733', accent: '#0e7a5f', line: '#dde4e0' },
+    logo: 'Studio Costa · geometra',
+    h1: 'Pratiche edilizie, senza giri.',
+    rows: [
+      ['Pratiche catastali', '—'],
+      ['SCIA e permessi', '—'],
+      ['Rilievi e perizie', '—'],
+    ],
+    rowsTitle: 'AMBITI',
+    note: '📐 Primo confronto senza impegno',
+  },
+];
+---
+
+<section class="showcase section" aria-labelledby="showcase-title">
+  <div class="container">
+    <SectionHead
+      eyebrow="Come può venire"
+      title="Un sito serio, nel tuo mestiere."
+      lede="Quattro esempi costruiti sui template di settore: colori, tono e struttura giusti per ogni bottega. Il tuo parte da quello che racconti a Paco — e ha sempre il pulsante WhatsApp al posto giusto."
+    />
+
+    <div class="showcase__grid" data-reveal-group>
+      {
+        shots.map((s) => (
+          <a
+            class="shot"
+            href={s.href}
+            data-reveal
+            style={`--shot-bg:${s.theme.bg};--shot-ink:${s.theme.ink};--shot-accent:${s.theme.accent};--shot-line:${s.theme.line}`}
+          >
+            <span class="shot__frame" aria-hidden="true">
+              <span class="shot__urlbar">
+                <i class="shot__dots">
+                  <b />
+                  <b />
+                  <b />
+                </i>
+                <span class="mono shot__url">{s.url}</span>
+              </span>
+              <span class="shot__page">
+                <span class="shot__brand">{s.logo}</span>
+                <span class="shot__h1">{s.h1}</span>
+                <span class="shot__note mono">{s.note}</span>
+                <span class="shot__list">
+                  <span class="mono shot__listtitle">{s.rowsTitle}</span>
+                  {s.rows.map(([name, value]) => (
+                    <span class="shot__row">
+                      <span>{name}</span>
+                      <span class="mono">{value}</span>
+                    </span>
+                  ))}
+                </span>
+                <span class="shot__wa">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2a10 10 0 0 0-8.7 14.9L2 22l5.3-1.3A10 10 0 1 0 12 2Z" />
+                  </svg>
+                  Scrivici su WhatsApp
+                </span>
+              </span>
+            </span>
+            <span class="shot__caption">
+              <strong>{s.label}</strong>
+              <span class="mono shot__cta">Vedi il percorso →</span>
+            </span>
+          </a>
+        ))
+      }
+    </div>
+
+    <p class="showcase__honesty mono">
+      Esempi illustrativi dei template di settore · nomi e attività di fantasia
+    </p>
+  </div>
+</section>
+
+<style>
+  .showcase__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-4);
+  }
+  .shot {
+    display: grid;
+    gap: var(--space-3);
+    text-decoration: none;
+    color: var(--ink);
+    border: 1px solid var(--line);
+    background: var(--surface);
+    padding: var(--space-3);
+    transition:
+      transform var(--t-med) var(--ease),
+      box-shadow var(--t-med) var(--ease),
+      border-color var(--t-med) var(--ease);
+  }
+  .shot:hover {
+    border-color: var(--accent);
+    transform: translate(-3px, -3px);
+    box-shadow: var(--shadow);
+    color: var(--ink);
+  }
+
+  .shot__frame {
+    display: block;
+    border: 1px solid var(--shot-line);
+    background: var(--shot-bg);
+    color: var(--shot-ink);
+    overflow: hidden;
+  }
+  .shot__urlbar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 0.4rem 0.7rem;
+    border-bottom: 1px solid var(--shot-line);
+  }
+  .shot__dots {
+    display: inline-flex;
+    gap: 4px;
+  }
+  .shot__dots b {
+    width: 6px;
+    height: 6px;
+    background: var(--shot-line);
+  }
+  .shot__url {
+    font-size: 0.65rem;
+    opacity: 0.7;
+  }
+  .shot__page {
+    display: grid;
+    gap: 0.55rem;
+    padding: 0.9rem;
+  }
+  /* parallax interno, solo dove il browser lo sa fare e il motion è ok */
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .shot__page {
+        animation: shot-pan linear both;
+        animation-timeline: view();
+        animation-range: entry 0% cover 55%;
+      }
+    }
+  }
+  .shot__brand {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    border-bottom: 2px solid var(--shot-ink);
+    padding-block-end: 0.35rem;
+  }
+  .shot__h1 {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    line-height: 1.15;
+  }
+  .shot__note {
+    font-size: 0.65rem;
+    color: var(--shot-accent);
+    border: 1px solid var(--shot-accent);
+    padding: 0.25em 0.6em;
+    justify-self: start;
+  }
+  .shot__list {
+    display: grid;
+    gap: 0.3rem;
+    font-size: 0.78rem;
+  }
+  .shot__listtitle {
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    opacity: 0.6;
+  }
+  .shot__row {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-3);
+    border-bottom: 1px dashed var(--shot-line);
+    padding-block-end: 0.2rem;
+  }
+  .shot__wa {
+    justify-self: start;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    background: #25d366;
+    color: #06130b;
+    font-weight: 800;
+    font-size: 0.7rem;
+    padding: 0.4em 0.8em;
+  }
+  .shot__caption {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-3);
+  }
+  .shot__cta {
+    font-size: var(--text-label);
+    color: var(--accent-text);
+  }
+  .showcase__honesty {
+    margin-block-start: var(--space-4);
+    font-size: var(--text-label);
+    color: var(--ink-mute);
+  }
+  @keyframes shot-pan {
+    from {
+      transform: translateY(14px);
+    }
+    to {
+      transform: translateY(-4px);
+    }
+  }
+  @media (max-width: 48rem) {
+    .showcase__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

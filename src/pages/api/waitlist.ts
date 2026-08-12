@@ -37,12 +37,16 @@ interface Submission {
   nome: string;
   attivita: string;
   whatsapp: string;
+  messaggio: string;
 }
 
 function validate(form: FormData): { ok: true; data: Submission } | { ok: false; error: string } {
   const nome = String(form.get('nome') ?? '').trim();
   const attivita = String(form.get('attivita') ?? '').trim();
   const whatsapp = String(form.get('whatsapp') ?? '').trim();
+  const messaggio = String(form.get('messaggio') ?? '')
+    .trim()
+    .slice(0, 600);
   const consenso = form.get('consenso');
 
   if (nome.length < 2 || nome.length > 120) {
@@ -58,7 +62,7 @@ function validate(form: FormData): { ok: true; data: Submission } | { ok: false;
   if (!consenso) {
     return { ok: false, error: 'Serve il consenso alla privacy per metterti in lista.' };
   }
-  return { ok: true, data: { nome, attivita, whatsapp } };
+  return { ok: true, data: { nome, attivita, whatsapp, messaggio } };
 }
 
 async function notify(data: Submission): Promise<void> {
@@ -87,6 +91,7 @@ async function notify(data: Submission): Promise<void> {
         `Nome: ${data.nome}`,
         `Attività: ${data.attivita}`,
         `WhatsApp: ${data.whatsapp}`,
+        data.messaggio ? `Primo messaggio: ${data.messaggio}` : 'Primo messaggio: (non compilato)',
         '',
         `Ricevuta il: ${new Date().toISOString()}`,
       ].join('\n'),

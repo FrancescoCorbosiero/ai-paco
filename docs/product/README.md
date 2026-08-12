@@ -12,6 +12,7 @@ coperta qui, o si aggiorna il documento o si toglie la frase.
 | [`03-user-journeys.md`](03-user-journeys.md) | I tre journey completi con dialoghi di esempio |
 | [`04-pricing.md`](04-pricing.md) | Ipotesi di fasce e tariffa fondatori — **da validare** |
 | [`05-demo-scripts.md`](05-demo-scripts.md) | Sceneggiature canoniche delle demo simulate del sito |
+| [`06-piattaforma-web.md`](06-piattaforma-web.md) | Area clienti e console ops — progettazione futura (repo separato) |
 
 Regole di scope, valide per tutto il repo:
 
