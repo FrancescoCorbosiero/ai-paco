@@ -127,6 +127,18 @@ const next = [
           <p class="ea-form__hint">Ti scriviamo qui, solo per l’early access. Niente spam.</p>
         </div>
 
+        <div class="ea-form__field">
+          <label for="messaggio">Il tuo primo messaggio per Paco <span class="ea-form__optional">(facoltativo)</span></label>
+          <textarea
+            id="messaggio"
+            name="messaggio"
+            rows="3"
+            maxlength="600"
+            placeholder="Es. Ho una pizzeria a Quarto, il menù cambia spesso e il sito è fermo dal 2023…"
+          ></textarea>
+          <p class="ea-form__hint">Raccontaci l’attività come la racconteresti a lui: ci aiuta a prepararti il posto.</p>
+        </div>
+
         <!-- honeypot: gli umani non lo vedono e non lo compilano -->
         <div class="ea-form__hp" aria-hidden="true">
           <label for="website">Sito web</label>
@@ -224,6 +236,12 @@ const next = [
     font-weight: 800;
     font-size: 0.95rem;
   }
+  .ea-form__optional {
+    font-weight: 400;
+    color: var(--ink-mute);
+    font-size: var(--text-label);
+  }
+  .ea-form textarea,
   .ea-form input[type='text'],
   .ea-form input[type='tel'] {
     background: var(--bg);
@@ -293,6 +311,13 @@ const next = [
   // errore riportato dal redirect no-JS: mostrato se presente in query
   const params = new URLSearchParams(window.location.search);
   const urlError = params.get('errore');
+
+  // il prompt scritto nella hero della home arriva come ?msg=…
+  const heroMsg = params.get('msg');
+  const messageArea = document.querySelector<HTMLTextAreaElement>('#messaggio');
+  if (heroMsg && messageArea && messageArea.value === '') {
+    messageArea.value = heroMsg.slice(0, 600);
+  }
 
   function show(kind: 'ok' | 'error', message: string): void {
     if (!status) return;

@@ -1,0 +1,63 @@
+---
+/**
+ * Nastro scorrevole di comandi in stile «Dillo a Paco.»
+ * Decorativo (aria-hidden), con testo equivalente per screen reader;
+ * fermo con prefers-reduced-motion.
+ */
+interface Props {
+  items?: string[];
+}
+const {
+  items = [
+    '«Cambia gli orari»',
+    '«Pubblica l’offerta di settembre»',
+    '«Togli la carbonara»',
+    '«Chiusi per ferie dal 10 al 24»',
+    '«La piega è 20 adesso»',
+    '«Stasera niente fritti»',
+  ],
+} = Astro.props;
+
+const line = items.join('  ·  ');
+---
+
+<div class="marquee" role="presentation">
+  <div class="marquee__track" aria-hidden="true">
+    {[0, 1].map(() => <span class="marquee__seq mono">{line} · Dillo a Paco. ·&nbsp;</span>)}
+  </div>
+  <p class="sr-only">Esempi di comandi: {line}. Dillo a Paco.</p>
+</div>
+
+<style>
+  .marquee {
+    overflow: hidden;
+    border-block: 1px solid var(--line);
+    background: var(--surface);
+    padding-block: 0.8rem;
+  }
+  .marquee__track {
+    display: flex;
+    width: max-content;
+    animation: marquee-scroll 36s linear infinite;
+  }
+  .marquee:hover .marquee__track {
+    animation-play-state: paused;
+  }
+  .marquee__seq {
+    white-space: nowrap;
+    font-size: var(--text-small);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+  @keyframes marquee-scroll {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .marquee__track {
+      animation: none;
+    }
+  }
+</style>

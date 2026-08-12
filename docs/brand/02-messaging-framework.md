@@ -144,11 +144,20 @@ le informazioni del sito, passando la mano al titolare quando serve un
 umano. Niente pannelli, niente password: una chat. Early access da fine
 2026, lista d'attesa su [dominio].
 
-## Gerarchia dei messaggi in home (per la Fase 2)
+## Gerarchia dei messaggi in home
 
-1. H1: la categoria in una frase (riga di supporto della tagline).
-2. Demo hero: il pilastro 2 mostrato, non raccontato (DEMO-HERO).
-3. Tre passi: pilastro 1.
-4. Sezione clienti: pilastro 3.
-5. Prova sociale onesta + prezzi (obiezione 5) + manifesto (il perché).
-6. Chiusura: «Dillo a Paco.» + CTA early access.
+1. H1: **la tagline come domanda-risposta** («Il sito della tua
+   attività? Dillo a Paco.») + riga di supporto descrittiva.
+2. **Il composer**: la hero È il prodotto — un campo messaggio in stile
+   WhatsApp dove il visitatore scrive il primo messaggio (o parte da un
+   chip di esempio); l'invio porta il testo nel form early access. Prima
+   interazione = il gesto che il prodotto chiede.
+3. Marquee dei comandi: il pattern di campagna in movimento.
+4. **«Prova tu»**: pilastro 2 reso interattivo (comando → sito che
+   cambia), non solo raccontato.
+5. Tre passi (pilastro 1) con demo onboarding.
+6. Showcase dei template di settore: la prova della qualità.
+7. Sezione clienti (pilastro 3) con le tre regole di fiducia.
+8. Voci e fondatori (prova sociale onesta) + prezzi (obiezione 5) +
+   manifesto (il perché).
+9. Chiusura: «Dillo a Paco.» + CTA early access.

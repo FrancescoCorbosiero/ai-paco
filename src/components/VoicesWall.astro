@@ -1,0 +1,184 @@
+---
+import SectionHead from './SectionHead.astro';
+import { reviews } from '../data/reviews';
+import { FOUNDERS_SEATS } from '../config';
+
+/**
+ * Blocco «voci»: quando esistono recensioni vere (src/data/reviews.ts)
+ * mostra quelle; fino ad allora, composizione onesta — scene simulate
+ * dichiarate + posti fondatori. Mai testimonial inventati: è un vincolo
+ * di progetto, non un dettaglio.
+ */
+
+const scenes = [
+  {
+    quote: 'No grazie, gentilissimi! A domattina.',
+    author: 'Marta',
+    context: 'cliente di Idraulica Ferri · urgenza delle 21:50',
+  },
+  {
+    quote: 'Esposito, 8 persone, 20:30. Grazie mille!',
+    author: 'Famiglia Esposito',
+    context: 'tavolo prenotato da Salvo · sabato, 11:13',
+  },
+  {
+    quote: 'Perfetto così! Pubblichiamo.',
+    author: 'Lucia',
+    context: 'titolare di Lucia Hair Style · sito approvato in chat',
+  },
+];
+---
+
+<section class="voices section" aria-labelledby="voices-title">
+  <div class="container">
+    {
+      reviews.length > 0 ? (
+        <>
+          <SectionHead
+            eyebrow="I fondatori"
+            title="Parola a chi lo usa."
+            lede="Recensioni vere, pubblicate con il consenso di chi le ha scritte."
+          />
+          <div class="voices__grid" data-reveal-group>
+            {reviews.map((r) => (
+              <figure class="voices__card" data-reveal>
+                <blockquote>
+                  <p>«{r.testo}»</p>
+                </blockquote>
+                <figcaption>
+                  <strong>{r.autore}</strong> — {r.attivita}, {r.citta}
+                  {r.fondatore && <span class="badge">Fondatore №{r.fondatore}</span>}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </>
+      ) : (
+        <>
+          <SectionHead
+            eyebrow="Le voci"
+            title="Le recensioni vere arrivano coi fondatori."
+            lede="Recensioni inventate non ne pubblichiamo — mai. Nel frattempo, ecco i momenti (simulati, come tutto ciò che vedi qui) che vogliamo sentirci raccontare per davvero."
+          />
+          <div class="voices__grid" data-reveal-group>
+            {scenes.map((s) => (
+              <figure class="voices__card" data-reveal>
+                <span class="voices__badge mono">Demo simulata</span>
+                <blockquote>
+                  <p>«{s.quote}»</p>
+                </blockquote>
+                <figcaption class="muted">
+                  <strong>{s.author}</strong> · {s.context}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+
+          <div class="voices__founders" data-reveal>
+            <p class="voices__big display" aria-hidden="true">
+              <span data-count-to={FOUNDERS_SEATS}>{FOUNDERS_SEATS}</span>
+            </p>
+            <div class="voices__founders-copy stack">
+              <h3>
+                {FOUNDERS_SEATS} posti fondatori. La recensione №1 può essere la tua.
+              </h3>
+              <p class="muted">
+                Tariffa Assistente bloccata a 39 €/mese invece di 59, finché resti. In cambio
+                chiediamo una cosa sola: dirci cosa non va, senza sconti. Questo spazio aspetta le
+                parole tue, non quelle di un copywriter.
+              </p>
+              <p>
+                <a class="btn btn--primary" href="/early-access">
+                  Prenota il posto №1
+                </a>
+              </p>
+            </div>
+            <figure class="voices__ghost" aria-hidden="true">
+              <span class="voices__badge mono">Recensione №1 · in attesa</span>
+              <blockquote>
+                <p>« _______________ »</p>
+              </blockquote>
+              <figcaption>— il tuo nome, la tua attività</figcaption>
+            </figure>
+          </div>
+        </>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .voices {
+    background: var(--surface);
+    border-block: 1px solid var(--line);
+  }
+  .voices__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-3);
+  }
+  .voices__card {
+    display: grid;
+    gap: var(--space-3);
+    align-content: start;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    padding: var(--space-4);
+  }
+  .voices__badge {
+    font-size: 0.6875rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    border: 1px dashed var(--line);
+    padding: 0.25em 0.6em;
+    justify-self: start;
+  }
+  .voices__card blockquote {
+    font-size: 1.15rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+  .voices__card figcaption {
+    font-size: var(--text-small);
+  }
+
+  .voices__founders {
+    margin-block-start: var(--space-6);
+    display: grid;
+    grid-template-columns: auto 1.4fr 1fr;
+    gap: var(--space-5);
+    align-items: center;
+    border: 2px solid var(--accent);
+    background: var(--bg);
+    box-shadow: var(--shadow);
+    padding: var(--space-5);
+  }
+  .voices__big {
+    font-size: clamp(4rem, 3rem + 6vw, 8rem);
+    color: var(--accent-text);
+    line-height: 1;
+  }
+  .voices__ghost {
+    display: grid;
+    gap: var(--space-2);
+    border: 1px dashed var(--line);
+    padding: var(--space-4);
+    color: var(--ink-mute);
+  }
+  .voices__ghost blockquote {
+    font-size: 1.05rem;
+  }
+  @media (max-width: 56rem) {
+    .voices__grid {
+      grid-template-columns: 1fr;
+    }
+    .voices__founders {
+      grid-template-columns: 1fr;
+      text-align: start;
+    }
+    .voices__big {
+      justify-self: start;
+    }
+  }
+</style>
