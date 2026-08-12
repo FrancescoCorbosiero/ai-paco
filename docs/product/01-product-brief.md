@@ -87,6 +87,60 @@ Tratti comuni del cliente tipo:
 strutturate con reparto marketing, chi vuole controllo pixel-per-pixel del
 design.
 
+### Personas di riferimento
+
+Quattro personas, una per verticale. Sono le stesse persone che vivono nei
+journey ([`03-user-journeys.md`](03-user-journeys.md)), nelle demo simulate
+del sito e nelle landing di settore: nomi e attività di fantasia, coerenti
+ovunque.
+
+- **Lucia, 52 anni — "Lucia Hair Style", salone a Busto Arsizio (VA).**
+  Lo smartphone è il suo unico computer. Pagina Facebook ferma da mesi,
+  niente sito. Vuole farsi trovare da clienti nuove e smettere di
+  rispondere al telefono con le mani in un colore. La sua frase: *"non
+  sono capace con queste cose"* — che è esattamente il requisito: con
+  Paco non c'è niente da essere capaci di fare.
+- **Salvatore, 44 anni — pizzeria "Da Salvo", Quarto (NA).** Il sito ce
+  l'ha: fatto nel 2019 da un conoscente, mai più aggiornato. Il menù
+  online non corrisponde a quello vero da due anni. Vuole che offerte e
+  menù siano sempre giusti senza dover rincorrere nessuno. La sua
+  obiezione: *"il sito l'ho già pagato una volta"*.
+- **Paolo, 51 anni — "Idraulica Ferri", Modena.** Niente sito:
+  passaparola e scheda Google. Perde lavori perché non può rispondere
+  quando è sotto un lavello. Vuole che le urgenze diventino richieste
+  ordinate invece di chiamate perse. La sua paura: *"un robot che parla
+  coi miei clienti"* — da disinnescare con l'handoff e l'onestà di Paco.
+- **Andrea, 38 anni — geometra, Bari.** Sito vetrina datato, richieste
+  che arrivano già sfiduciate ("quanto costa?", senza contesto). Vuole
+  richieste qualificate, non curiosi. La sua obiezione: *"il mio lavoro è
+  troppo specifico per farlo spiegare a un'AI"* — infatti Paco nei
+  settori professionali non consiglia: qualifica e fissa il contatto.
+
+### I lavori per cui Paco viene assunto (jobs to be done)
+
+1. **"Fatti trovare al posto mio."** Presenza online decorosa e sempre
+   vera, senza che il titolare debba occuparsene.
+2. **"Tieni tutto aggiornato senza rubarmi tempo."** Il costo di una
+   modifica deve tendere a zero: dieci secondi in chat.
+3. **"Rispondi tu quando io non posso."** Le domande ripetitive trovano
+   risposta subito; al titolare arriva solo ciò che richiede lui.
+
+Il sito è il mezzo con cui questi lavori vengono svolti, non il fine. Per
+questo Paco non si vende come "site builder": si vende come collaboratore.
+
+### Numeri di contesto (da verificare prima di qualunque uso pubblico)
+
+| Affermazione | Ordine di grandezza | Fonte da verificare |
+|---|---|---|
+| Le micro-imprese (0–9 addetti) sono la quasi totalità delle imprese italiane | > 4 milioni, oltre il 90% del totale | Istat / Registro imprese, dato più recente |
+| Una quota ampia di micro-imprese non ha un sito, o ne ha uno non aggiornato | maggioranza, con forti differenze per settore | DESI / Eurostat, indagini di categoria |
+| WhatsApp è l'app di messaggistica più usata in Italia | penetrazione altissima su tutte le fasce d'età | report annuali (es. We Are Social / Audicom) |
+
+**Regola vincolante per la copy del sito**: nessuno di questi numeri va in
+pagina finché non è verificato con una fonte citabile e recente. Al lancio
+la copy non usa statistiche di mercato: usa i problemi concreti, che il
+target riconosce da solo senza bisogno di percentuali.
+
 ## Value proposition
 
 > **Il tuo sito web, gestito scrivendo su WhatsApp.**
@@ -170,6 +224,11 @@ vecchie", perché la fonte di verità è una sola.
 - **Qualità percepita del sito generato**: deve reggere il confronto con un
   sito "fatto fare"; il design system è curato da Alpacode, non delegato
   interamente alla generazione.
+- **Trasparenza e norme sull'AI**: Paco parla con consumatori finali, quindi
+  obblighi di trasparenza (sapere che si sta parlando con un'AI) e tutela
+  dei dati vanno progettati dentro il prodotto, non aggiunti dopo. Il
+  principio "Paco si presenta sempre come assistente" nasce anche da qui
+  (AI Act, GDPR).
 
 ## Glossario minimo
 

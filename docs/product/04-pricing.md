@@ -93,6 +93,37 @@ urgenza onesta (numero chiuso reale, non countdown finti).
   giorno" (ristorazione), "meno di una piega a settimana" (saloni) — da
   declinare per verticale nelle landing.
 
+## Economics di massima (da verificare)
+
+Stime di ordine di grandezza per la fascia Assistente, solo per sanità del
+modello — non sono un business plan:
+
+| Voce di costo mensile per cliente | Ordine di grandezza | Note |
+|---|---|---|
+| Conversazioni WhatsApp Business Platform | pochi € ai volumi tipici di una piccola attività | il listino Meta è cambiato più volte (template a pagamento per categoria, conversazioni di servizio in finestra 24 h) — **verificare il listino corrente per l'Italia** prima di fissare i prezzi |
+| Inferenza AI (generazione sito + risposte) | pochi € | dipende da modello, caching e volumi; volumi MVP bassi |
+| Hosting statico + dominio | ~1–2 € ammortizzati | CDN statica; dominio proprio solo da fascia Assistente in su |
+| Supporto umano e onboarding | la voce vera nei primi mesi | è qui che si gioca il margine all'inizio |
+
+Obiettivo: margine lordo > 70–80% sulla fascia Assistente a regime; la
+tariffa fondatori (39 €) deve restare ampiamente sopra il pareggio dei
+costi variabili. Se i costi per conversazione superassero le attese,
+meglio una soglia equa dichiarata ("fino a N conversazioni al mese, poi ne
+parliamo") che un prezzo più alto per tutti.
+
+## Prezzi di riferimento del mercato (fonti per la pagina Prezzi)
+
+| Alternativa | Costo tipico | Il costo nascosto |
+|---|---|---|
+| Agenzia / freelance | 800–3.000 € una tantum + 50–100 € a intervento | i tempi: giorni per ogni modifica |
+| Site builder (Wix, Squarespace, one.com…) | 10–36 €/mese | il tempo del titolare: ore per imparare e per aggiornare |
+| Nipote / conoscente | «gratis» | il sito muore quando il nipote si stanca |
+| Solo social + scheda Google | 0 € | orari sbagliati, zero controllo, domande senza risposta |
+
+I range vanno **verificati con 3–5 preventivi e listini reali** prima di
+usarli in pagina; fino ad allora la copy usa formule qualitative («meno di
+un tavolo da quattro al mese»), mai numeri non verificati.
+
 ## Domande aperte per la validazione
 
 1. Il target percepisce la differenza Presenza/Assistente o va tutto

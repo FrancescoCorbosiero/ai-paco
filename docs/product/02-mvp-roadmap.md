@@ -80,6 +80,46 @@
 - Conformità: privacy policy e cookie banner sul sito generato, gestione
   del consenso nelle conversazioni.
 
+### Il numero WhatsApp: come funziona (modello MVP)
+
+Un solo numero per l'attività, due ruoli:
+
+- **L'attività riceve un numero WhatsApp Business dedicato**, incluso
+  nell'abbonamento: è il numero pubblicato sul sito, quello a cui scrivono
+  i clienti e su cui vive Paco.
+- **Il titolare scrive allo stesso numero dal suo WhatsApp personale**:
+  Paco riconosce il numero registrato in onboarding e apre la chat di
+  gestione — aggiornamenti, riepiloghi, handoff. Nessuna app da
+  installare, nessun account nuovo, nessuna password.
+- Il numero storico dell'attività resta al titolare per telefonate e
+  abitudini consolidate; sito e materiali spingono il numero Paco.
+  **Nota tecnica onesta**: un numero già attivo sull'app WhatsApp o
+  WhatsApp Business non può essere collegato alla piattaforma cloud senza
+  smettere di funzionare nell'app. Per questo l'MVP consiglia il numero
+  nuovo incluso; il trasferimento del numero esistente si valuta caso per
+  caso in onboarding, spiegando le conseguenze.
+
+### Requisiti non funzionali (MVP)
+
+- **Reattività**: prima risposta ai clienti entro pochi secondi, con
+  indicatore di digitazione onesto; modifiche al sito pubblicate entro un
+  minuto dalla conferma.
+- **Robustezza**: il sito è statico su CDN e resta online anche se l'AI è
+  degradata; in quel caso Paco risponde con un messaggio di cortesia e
+  passa al titolare. Mai silenzio.
+- **Trasparenza**: Paco si dichiara assistente AI al primo contatto —
+  principio di prodotto prima ancora che obbligo normativo (AI Act).
+- **Dati**: contenuti e contatti sono del titolare (export sempre
+  disponibile); conservazione minima delle conversazioni; nessun uso dei
+  dati per addestrare modelli senza consenso esplicito; GDPR by design.
+- **Sicurezza**: solo i numeri autorizzati comandano le modifiche;
+  conferma esplicita per le azioni distruttive ("togli la pagina",
+  "cancella tutto"); registro delle modifiche consultabile in chat.
+- **Costi variabili sotto controllo**: le conversazioni sulla WhatsApp
+  Business Platform hanno un costo per Alpacode; il pricing li assorbe
+  (vedi [`04-pricing.md`](04-pricing.md)) e i volumi per titolare si
+  monitorano dal giorno uno.
+
 ### Fuori dall'MVP, esplicitamente
 
 Prenotazioni con calendario reale, pagamenti, e-commerce, multilingua del
@@ -126,3 +166,15 @@ sito di lancio si comunicano come direzione, senza date vincolanti.
   handoff, con soddisfazione verificata a campione.
 - Churn mensile early adopter sotto una soglia da definire dopo i primi
   90 giorni.
+
+## Piano di validazione (early access)
+
+| Ipotesi | Come la testiamo | Segnale che regge |
+|---|---|---|
+| I titolari pagano 59 €/mese per la fascia Assistente | tariffa fondatori 39 € + interviste sul prezzo pieno | conversione lista → attivi > 30%, churn a 90 giorni basso |
+| L'onboarding in chat arriva in fondo | metriche di drop-off per passo | > 70% completa entro 48 ore |
+| Paco chiude da solo la maggior parte delle conversazioni | % conversazioni senza handoff + audit qualitativo | > 70%, con soddisfazione verificata a campione |
+| L'aggiornamento in chat diventa un'abitudine | aggiornamenti/settimana per titolare | mediana ≥ 1 dopo il primo mese |
+
+Le soglie sono indicative e servono a decidere, non a fare bella figura:
+se un numero non regge, si cambia il prodotto o il prezzo, non la metrica.

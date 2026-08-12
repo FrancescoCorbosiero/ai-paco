@@ -216,6 +216,98 @@ dei due ha l'impressione di parlare con un call center.
 
 ---
 
+## Journey 4 — Primo contatto qualificato (professionisti)
+
+**Protagonisti**: Andrea Costa, 38 anni, geometra a Bari. Grazia, 46 anni,
+vuole chiudere il balcone con una veranda e ha trovato il sito dello studio
+cercando "geometra Bari pratiche edilizie". Tocca il pulsante WhatsApp.
+
+**Obiettivo**: trasformare un contatto freddo in una richiesta qualificata
+(cosa, dove, quando, con che vincoli) senza che Paco sconfini nella
+consulenza tecnica — che è il mestiere di Andrea, non suo.
+
+### Dialogo di esempio
+
+> **Grazia**: Buongiorno, vorrei chiudere il balcone con una veranda.
+> Serve il permesso del comune?
+>
+> **Paco**: Buongiorno! Sono Paco, l'assistente dello studio del geometra
+> Costa. Ti dico subito una cosa onesta: la risposta seria dipende dal
+> comune, dal regolamento condominiale e da com'è fatto il balcone — e
+> quella te la deve dare Andrea, è il suo mestiere. Io intanto posso
+> raccogliere le informazioni che gli servono, così quando ti risponde ha
+> già il quadro. Ti va?
+>
+> **Grazia**: Va bene
+>
+> **Paco**: Perfetto. In che comune è l'immobile? E si tratta di un
+> condominio o di una casa indipendente?
+>
+> **Grazia**: Bari, zona Poggiofranco, condominio
+>
+> **Paco**: Grazie. Se riesci, mandami una foto del balcone e una misura
+> indicativa — va bene anche a occhio. E per quando vorresti fare il
+> lavoro?
+>
+> **Grazia**: *[foto]* Circa 3 metri per 1,5. Vorrei chiudere prima
+> dell'inverno
+>
+> **Paco**: Ho tutto, riassumo ad Andrea: veranda su balcone di circa
+> 3×1,5 m, condominio a Bari Poggiofranco, obiettivo entro l'autunno,
+> foto allegata. Il primo confronto telefonico con lo studio è senza
+> impegno. A che numero e in che orari preferisci essere richiamata?
+>
+> **Grazia**: Questo numero, dopo le 17
+>
+> *(ad Andrea, nella chat di gestione)*
+>
+> **Paco**: 🟢 Nuova richiesta qualificata, ore 11:20
+> Veranda su balcone ~3×1,5 m, condominio, Bari Poggiofranco. Obiettivo:
+> entro l'autunno. Foto allegata. Richiamare Grazia dopo le 17 al numero
+> +39 3xx xxx xxxx.
+>
+> **Andrea**: ok, la chiamo stasera
+>
+> **Paco** *(a Grazia)*: Andrea ti chiama oggi dopo le 17. Se ti serve
+> altro nel frattempo, scrivimi pure qui. Buona giornata!
+
+### Regola specifica dei settori professionali
+
+Dove c'è responsabilità professionale (tecnica, legale, fiscale,
+sanitaria), **Paco non dà pareri, mai**: dice con chiarezza che la
+valutazione spetta al professionista, raccoglie ciò che serve e fissa il
+contatto. "Il primo confronto è senza impegno" si dice solo se la fonte di
+verità dello studio lo prevede. È il filtro che trasforma i curiosi in
+richieste serie: non promettendo risposte, ma preparando bene la domanda.
+
+---
+
+## Casi limite trasversali (da progettare)
+
+- **Messaggi vocali**: i titolari li usano moltissimo → trascrizione e
+  risposta in testo; mai obbligare nessuno a scrivere.
+- **Foto illeggibili o dati incompleti**: una sola richiesta di
+  chiarimento, mirata; poi si procede con quello che c'è, dichiarando
+  cosa manca.
+- **Cliente che scrive in un'altra lingua**: risposta nella lingua del
+  cliente per le informazioni di base (ipotesi MVP: italiano e inglese);
+  oltre, handoff.
+- **Toni aggressivi o molestie**: un richiamo cortese, poi chiusura
+  educata e segnalazione al titolare. Paco non litiga mai.
+- **Emergenze vere** (fuga di gas, principio d'incendio, allagamento
+  grave): Paco non gestisce emergenze — invita subito a chiamare i numeri
+  di emergenza e in parallelo allerta il titolare.
+- **Richieste di cancellazione dati (GDPR)**: flusso dedicato con
+  conferma scritta ed esecuzione tracciata.
+- **Numero del titolare cambiato o non riconosciuto**: verifica di
+  identità prima di accettare qualsiasi modifica; il nome in chat non
+  basta.
+- **Doppio contesto** (il titolare è anche cliente di un'altra attività
+  con Paco): i ruoli restano separati per numero e per attività, senza
+  fughe di informazioni tra le due chat.
+
+---
+
 ## Uso di questi journey nella piattaforma di lancio
 
 - **Demo hero in home**: versione compressa del Journey 2 (l'aggiornamento
@@ -223,9 +315,12 @@ dei due ha l'impressione di parlare con un call center.
 - **Pagina "Come funziona"**: i tre journey in sequenza, illustrati con i
   fumetti squadrati dell'identità visiva.
 - **Landing di settore**: ogni verticale usa un dialogo specifico
-  (parrucchiera → Journey 1, ristorazione → Journey 2, artigiani →
-  Journey 3, professionisti → variante da scrivere sul primo contatto
-  qualificato).
+  (parrucchieri → Journey 1, ristorazione → Journey 2, artigiani →
+  Journey 3, professionisti → Journey 4).
+- Le sceneggiature esatte usate sul sito — testi definitivi, tempi di
+  animazione, comportamento con `prefers-reduced-motion` — sono in
+  [`05-demo-scripts.md`](05-demo-scripts.md): il codice del sito le
+  implementa senza riscriverle.
 - Tutti i dialoghi mostrati sul sito sono **dichiaratamente simulati**
   (nomi e attività di fantasia), coerenti con il vincolo "mai testimonial
   inventati": queste sono dimostrazioni di funzionamento, non prove
