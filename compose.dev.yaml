@@ -1,0 +1,31 @@
+# ---------------------------------------------------------------------------
+# Sviluppo locale con hot reload (nessuna build dell'immagine di produzione).
+#
+#   docker compose -f compose.dev.yaml up
+#   → http://localhost:4321
+#
+# Il sorgente è montato dal host; node_modules vive in un volume dedicato
+# così non sporca (né viene sporcato da) l'eventuale install locale.
+# ---------------------------------------------------------------------------
+
+services:
+  dev:
+    image: node:22-alpine
+    working_dir: /app
+    command: sh -c "npm install --no-audit --no-fund && npm run dev -- --host 0.0.0.0"
+    ports:
+      - '4321:4321'
+    environment:
+      SITE: ${SITE:-http://localhost:4321}
+      PUBLIC_WHATSAPP_NUMBER: ${PUBLIC_WHATSAPP_NUMBER:-}
+      RESEND_API_KEY: ${RESEND_API_KEY:-}
+      WAITLIST_TO: ${WAITLIST_TO:-}
+      WAITLIST_FROM: ${WAITLIST_FROM:-}
+      # file watching affidabile dentro il container (bind mount)
+      CHOKIDAR_USEPOLLING: 'true'
+    volumes:
+      - .:/app
+      - dev-node-modules:/app/node_modules
+
+volumes:
+  dev-node-modules:

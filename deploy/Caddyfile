@@ -1,0 +1,17 @@
+# Reverse proxy per il servizio `caddy` opzionale in compose.yaml.
+# TLS automatico via Let's Encrypt: basta che il DNS del dominio punti
+# al VPS e che le porte 80/443 siano aperte.
+#
+# Il dominio arriva dall'env SITE_HOST (default in compose.yaml).
+
+{$SITE_HOST} {
+	encode gzip zstd
+	reverse_proxy web:4321
+
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "DENY"
+		Referrer-Policy "strict-origin-when-cross-origin"
+	}
+}
